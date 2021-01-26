@@ -41,7 +41,4 @@
          </opaqueInsets>
       </GridPane>
    </left>
-   <center>
-      <Label text="Anm." BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>
