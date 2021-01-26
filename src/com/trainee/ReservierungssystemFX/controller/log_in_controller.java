@@ -36,7 +36,7 @@ public class log_in_controller {
     }
 
     public void onMouseClick(MouseEvent mouseEvent) throws IOException {
-        Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/resources/sign_in.fxml"));
+        Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/sign_in.fxml"));
         Scene sceneRegestrierung = new Scene(parentRegestrierung);
         Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         window.setScene(sceneRegestrierung);
@@ -73,11 +73,11 @@ public class log_in_controller {
             }
         }
         if (bPasswort){
-            Parent parentReservierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/resources/reservation.fxml"));
-            Scene sceneReservierung = new Scene(parentReservierung);
+            Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/reservation.fxml"));
+            Scene sceneRegestrierung = new Scene(parentRegestrierung);
             Stage window = (Stage) ((Node) mouseEvent_logIn.getSource()).getScene().getWindow();
-            window.setScene(sceneReservierung);
-            window.setTitle("Raumreservierung");
+            window.setScene(sceneRegestrierung);
+            window.setTitle("Reservierung");
             window.show();
         }
     }
