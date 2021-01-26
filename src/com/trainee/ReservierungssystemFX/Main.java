@@ -15,11 +15,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         DatenErzeugnung create_data = new DatenErzeugnung();
         create_data.leseAlle();
-        Parent parentAnmeldung = FXMLLoader.load(getClass().getResource("resources/log_in.fxml"));
+        Parent parentAnmeldung = FXMLLoader.load(getClass().getResource("FXML/log_in.fxml"));
         primaryStage.setTitle("Anmeldung");
         primaryStage.setScene(new Scene(parentAnmeldung));
         primaryStage.show();
-        System.out.println(DatenErzeugnung.getHmapMitarbeiter());
     }
 
     public static void main(String[] args) {

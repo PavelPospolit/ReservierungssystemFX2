@@ -2,3 +2,11 @@
 	-fx-background-color: rgb(226, 0, 116);
 	-fx-position: center;
 }
+.log_in_button_color_and_size{
+    -fx-background-color: green;
+    -fx-font-size: 25px;
+    -fx-font-weight:bold;
+}
+.Error_Label_Font_Color{
+    -fx-text-fill: red;
+}
