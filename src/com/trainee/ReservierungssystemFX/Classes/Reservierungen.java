@@ -5,6 +5,7 @@ public class Reservierungen {
     private static String smaName;
     private static String sBisWann;
     private static String sRaumNummer;
+    private static String sAbwann;
 
     public static String getsReservierungsnummer() {
         return sReservierungsnummer;
@@ -30,12 +31,17 @@ public class Reservierungen {
     public static void setsRaumNummer(String sRaumNummer) {
         Reservierungen.sRaumNummer = sRaumNummer;
     }
-
-
-    public Reservierungen(String resNummer, String maName, String raumnummer, String biswann) {
+    public static String getsAbwann() {
+        return sAbwann;
+    }
+    public static void setsAbwann(String sAbwann) {
+        Reservierungen.sAbwann = sAbwann;
+    }
+    public Reservierungen(String resNummer, String maName, String raumnummer, String abwann, String biswann) {
         sReservierungsnummer = resNummer;
         smaName = maName;
         sBisWann = biswann;
         sRaumNummer = raumnummer;
+        sAbwann = abwann;
     }
 }

@@ -26,7 +26,7 @@ public class Konstanten {
     public static  final File rFile = new File("src\\com\\trainee\\ReservierungssystemFX\\resources\\Raumliste.txt");
     public static  final File mFile = new File("src\\com\\trainee\\ReservierungssystemFX\\resources\\Mitarbeiter.txt");
     public static  final File resFile = new File("src\\com\\trainee\\ReservierungssystemFX\\resources\\Reservierungen.txt");
-    public static  SimpleDateFormat df = new SimpleDateFormat("dd.MM.yy;HH:mm");
+    public static  SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy;HH:mm");
 
 
     public static  BufferedReader mEinlesen;

@@ -131,6 +131,8 @@ public class Schreiben {
                             ", " +
                             DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsRaumNummer() +
                             ", " +
+                            DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsAbwann()+
+                            ", "+
                             DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsBisWann());
             resWriter.newLine();
         }

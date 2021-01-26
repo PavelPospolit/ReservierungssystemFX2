@@ -83,7 +83,8 @@ public class DatenErzeugnung {
                             alhilfe[j],
                             alhilfe[j + 1],
                             alhilfe[j + 2],
-                            alhilfe[j + 3]);
+                            alhilfe[j + 3],
+                            alhilfe[j + 4]);
                     hmapReservierungen.put(Reservierungen.getsReservierungsnummer(), res);
                 }
             }

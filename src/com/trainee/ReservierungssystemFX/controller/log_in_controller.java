@@ -33,6 +33,8 @@ public class log_in_controller {
     private Label errorWindowPassword;
     @FXML
     static Button log_in_button;
+    static String sNameue="";
+
 
     public TextField getTextFieldEmail() {
         return textFieldEmail;
@@ -81,6 +83,7 @@ public class log_in_controller {
                 errorWindowPassword.setText("Ungültiges Passwort!");
             }
         }
+
         if (bPasswort) {
             Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/reservation.fxml"));
             Scene sceneRegestrierung = new Scene(parentRegestrierung);
@@ -88,6 +91,7 @@ public class log_in_controller {
             window.setScene(sceneRegestrierung);
             window.setTitle("Reservierung");
             window.show();
+            sNameue=sName;
         }
     }
 }

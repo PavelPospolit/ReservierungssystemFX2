@@ -1,6 +1,20 @@
-Raum123, t123123001, TESTRAUM002, 2, true
-1212, 00011, 1, 1, true
-Hinteres Buero, E1, Viel Platz; Whiteboard, 2, true
-Zweiter von rechts, E2, Gro�; warm; bunt, 10, true
-testraum, t1, jj, 2, true
-2000000, 10, test, 1, true
+Büro 8, R008, Kaffemachine, 1, false
+Büro 17, R107, Tafel, 1, true
+Büro 9, R009, Beamer/Whiteboard, 2, false
+Büro 18, R108, Viel Platz; Whiteboard, 2, true
+Büro 6, R006, Viel Platz; Whiteboard, 2, false
+Büro 15, R105, Viel Platz; Whiteboard, 2, true
+Büro 7, R007, Beamer/Whiteboard, 2, false
+Büro 16, R106, Beamer/Whiteboard, 2, true
+Büro 4, R004, Beamer/Whiteboard, 2, false
+Büro 13, R103, Beamer/Whiteboard, 2, true
+Büro 5, R005, Wasserspender, 1, false
+Büro 14, R104, Ungetrackter Laptop, 1, true
+Büro 2, R002, Beamer/Whiteboard, 4, false
+Büro 11, R101, Inspirationsraum, 1, true
+Büro 3, R003, Viel Platz; Whiteboard, 2, false
+Büro 12, R102, Viel Platz; Whiteboard, 2, true
+Büro 19, R109, Beamer, 2, true
+Büro 20, R110, Beamer/Whiteboard, 1, true
+Büro 1, R001, Beamer/Whiteboard, 2, false
+Büro 10, R010, gut belichtet, 2, true
