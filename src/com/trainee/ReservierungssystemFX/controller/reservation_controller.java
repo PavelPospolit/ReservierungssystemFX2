@@ -5,9 +5,14 @@ import com.trainee.ReservierungssystemFX.actions.Random_Number_Generator;
 import com.trainee.ReservierungssystemFX.actions.Schreiben;
 import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,9 +23,10 @@ import java.util.ResourceBundle;
 
 public class reservation_controller implements Initializable {
     @FXML
-    Button safeAndClose;
+    public Button showReservationsButton;
+    public Button returnRoomButton;
     @FXML
-    Label emailLabel;
+    Button safeAndClose;
     @FXML
     DatePicker startDate;
     @FXML
@@ -34,21 +40,12 @@ public class reservation_controller implements Initializable {
     @FXML
     ChoiceBox<String> selectRoom;
 
-    public Label getEmailLabel() {
-        return emailLabel;
-    }
-
-    public void setEmailLabel(Label emailLabel) {
-        this.emailLabel = emailLabel;
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
     }
 
     private void loadData() {
-        emailLabel.setText(log_in_controller.sNameue);
         String[] hilfsString = DatenErzeugnung.getHmapRooms().keySet().toArray(new String[0]);
         ArrayList<String> hilfsArray = new ArrayList<>();
         for (int i = 0; i < hilfsString.length; i++) {
@@ -102,5 +99,24 @@ public class reservation_controller implements Initializable {
     public void safeAndCloseClick(MouseEvent mouseEvent) throws IOException {
         Schreiben s = new Schreiben();
         System.exit(0);
+    }
+
+    public void onMouseClickshowRes(MouseEvent mouseEvent) throws IOException {
+        Parent parentShowReservation = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/show_reservations.fxml"));
+        Scene sceneShowReservation = new Scene(parentShowReservation);
+        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        window.setScene(sceneShowReservation);
+        window.setTitle("Alle Reservierungen");
+        window.show();
+    }
+
+    public void onMouseClickCancelRes(MouseEvent mouseEvent) throws IOException {
+        Parent parentCancelReservation = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/cancel_reservation.fxml"));
+        Scene sceneCancelReservation = new Scene(parentCancelReservation);
+        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        window.setScene(sceneCancelReservation);
+        window.setTitle("Buchung Zurückziehen");
+        window.show();
+
     }
 }
