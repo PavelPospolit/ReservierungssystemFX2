@@ -23,19 +23,25 @@ public class Zeit_Vergleich extends Thread {
             String date = Konstanten.df.format(new Date());
             String[] hilfsString = DatenErzeugnung.getAllReservations().keySet().toArray(new String[0]);
             for (int i = 0; i < hilfsString.length; i++) {
-                Date date1 = null;
+                Date aktuellesDatum = null;
                 try {
-                    date1 = Konstanten.df.parse(date);
+                    aktuellesDatum = Konstanten.df.parse(date);
                 } catch (ParseException e) {
                     System.out.println("Falsches Zeitformat");
                 }
-                Date date2 = null;
+                Date bisDatum = null;
                 try {
-                    date2 = Konstanten.df.parse(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsBisWann());
+                    bisDatum = Konstanten.df.parse(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsBisWann());
                 } catch (ParseException e) {
                     System.out.println("Falsches Zeitformat");
                 }
-                if (date1.compareTo(date2) >= 0) {
+                Date abDatum = null;
+                try {
+                    abDatum = Konstanten.df.parse(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsAbwann());
+                } catch (ParseException e) {
+                    System.out.println("Falsches Zeitformat");
+                }
+                if ((aktuellesDatum.compareTo(bisDatum) >= 0)) {
                     DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsRaumNummer()).setVerfuegbarkeit(true);
                     DatenErzeugnung.getAllReservations().remove(hilfsString[i]);
                 }

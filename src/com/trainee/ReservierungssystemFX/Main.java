@@ -1,6 +1,7 @@
 package com.trainee.ReservierungssystemFX;
 
 
+import com.trainee.ReservierungssystemFX.actions.Zeit_Vergleich;
 import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,10 @@ public class Main extends Application{
         primaryStage.show();
     }
     public static void main(String[] args) {
+        Zeit_Vergleich timeCheck = new Zeit_Vergleich();
+        new Thread(timeCheck).start();
         launch(args);
+
     }
 
 }

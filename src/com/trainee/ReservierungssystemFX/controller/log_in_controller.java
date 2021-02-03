@@ -1,6 +1,7 @@
 package com.trainee.ReservierungssystemFX.controller;
 
 import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
+import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,7 +46,7 @@ public class log_in_controller {
     }
 
 
-    public void onMouseClick(MouseEvent mouseEvent) throws IOException {
+    public void goToRegistration(MouseEvent mouseEvent) throws IOException {
         Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/sign_in.fxml"));
         Scene sceneRegestrierung = new Scene(parentRegestrierung);
         Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
@@ -85,13 +86,7 @@ public class log_in_controller {
         }
 
         if (bPasswort) {
-            Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/reservation.fxml"));
-            Scene sceneRegestrierung = new Scene(parentRegestrierung);
-            Stage window = (Stage) ((Node) mouseEvent_logIn.getSource()).getScene().getWindow();
-            window.setScene(sceneRegestrierung);
-            window.setTitle("Reservierung");
-            window.show();
-            sNameue=sName;
+            FrequentlyUsedButtons.goToReservation(mouseEvent_logIn);
         }
     }
 }

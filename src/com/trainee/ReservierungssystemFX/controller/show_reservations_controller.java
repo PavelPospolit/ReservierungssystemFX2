@@ -3,6 +3,7 @@ package com.trainee.ReservierungssystemFX.controller;
 import com.trainee.ReservierungssystemFX.Classes.Reservierungen;
 import com.trainee.ReservierungssystemFX.actions.Schreiben;
 import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
+import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -29,25 +30,16 @@ public class show_reservations_controller implements Initializable {
     public TextArea RaumNummer;
     public TextArea BuchungVon;
     public TextArea BuchungBis;
+    public Button updateButton;
 
 
     public void onMouseClickCancelRes(MouseEvent mouseEvent) throws IOException {
-        Parent parentCancelReservation = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/cancel_reservation.fxml"));
-        Scene sceneCancelReservation = new Scene(parentCancelReservation);
-        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        window.setScene(sceneCancelReservation);
-        window.setTitle("Buchung Zurückziehen");
-        window.show();
+        FrequentlyUsedButtons.cancelReservatrionButton(mouseEvent);
 
     }
 
     public void onMouseClickBackToRes(MouseEvent mouseEvent) throws IOException {
-        Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/reservation.fxml"));
-        Scene sceneRegestrierung = new Scene(parentRegestrierung);
-        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        window.setScene(sceneRegestrierung);
-        window.setTitle("Reservierung");
-        window.show();
+        FrequentlyUsedButtons.goToReservation(mouseEvent);
     }
 
     public void safeAndCloseClick(MouseEvent mouseEvent) throws IOException {
@@ -56,12 +48,7 @@ public class show_reservations_controller implements Initializable {
     }
 
     public void SafeAndBackClick(MouseEvent mouseEvent) throws IOException {
-        Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/log_in.fxml"));
-        Scene sceneRegestrierung = new Scene(parentRegestrierung);
-        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        window.setScene(sceneRegestrierung);
-        window.setTitle("Anmeldung");
-        window.show();
+        FrequentlyUsedButtons.safeAndBack(mouseEvent);
     }
 
     @Override
@@ -77,16 +64,9 @@ public class show_reservations_controller implements Initializable {
             BuchungBis.setText(BuchungBis.getText()+ DatenErzeugnung.getAllReservations().get(key).getsBisWann()+"\n");
 
         }
+    }
 
-
-     /*   String[] hilfsString = DatenErzeugnung.getAllReservations().keySet().toArray(new String[0]);
-        for (int i = 0; i < hilfsString.length; i++) {
-            BuchungsNummer.setText(BuchungsNummer.getText() + hilfsString[i] + "\n");
-            RaumNummer.setText(RaumNummer.getText() + DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsRaumNummer() + "\n");
-            BuchungVon.setText(BuchungVon.getText() + DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsAbwann() + "\n");
-            BuchungBis.setText(BuchungBis.getText() + DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsBisWann() + "\n");
-
-
-        }*/
+    public void updateButtonClick(MouseEvent mouseEvent) throws IOException {
+        FrequentlyUsedButtons.showRes(mouseEvent);
     }
 }
