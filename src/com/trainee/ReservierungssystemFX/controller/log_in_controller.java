@@ -34,7 +34,7 @@ public class log_in_controller {
     private Label errorWindowPassword;
     @FXML
     static Button log_in_button;
-    static String sNameue="";
+    static String sName="";
 
 
     public TextField getTextFieldEmail() {
@@ -57,7 +57,7 @@ public class log_in_controller {
 
     public void logInOnMouseClicked(MouseEvent mouseEvent_logIn) throws IOException {
         boolean bEmail = true, bPasswort = true;
-        String sName = getTextFieldEmail().getText();
+        sName = getTextFieldEmail().getText();
         String[] hilfsStringEmail = DatenErzeugnung.getHmapMitarbeiter().keySet().toArray(new String[0]);
         for (int i = 0; i < hilfsStringEmail.length; i++) {
             if ((hilfsStringEmail[i].equals(sName) ||

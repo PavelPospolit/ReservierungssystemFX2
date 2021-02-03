@@ -5,23 +5,21 @@ import com.trainee.ReservierungssystemFX.actions.Random_Number_Generator;
 import com.trainee.ReservierungssystemFX.actions.Schreiben;
 import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
+import com.trainee.ReservierungssystemFX.resources.Konstanten;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.*;
 
 import static com.trainee.ReservierungssystemFX.resources.DatenErzeugnung.*;
 
 public class reservation_controller implements Initializable {
+    String date = Konstanten.df.format(new Date());
     @FXML
     public Button showReservationsButton;
     public Button returnRoomButton;
@@ -39,6 +37,9 @@ public class reservation_controller implements Initializable {
     Button bookingButton;
     @FXML
     ChoiceBox<String> selectRoom;
+    boolean zuFrüh = true;
+    boolean zuSpät = true;
+    boolean rightRoom;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,33 +73,80 @@ public class reservation_controller implements Initializable {
 
         String roomnumber = selectRoom.getValue().split(", ")[1];
 
-        int iRand = rand.ResRandomNumber();
-        String Buchungsnummer = "BU" + iRand;
-        
-        Reservierungen hilfsRes = new Reservierungen(
-                Buchungsnummer,
-                log_in_controller.sNameue,
-                roomnumber,
-                sVon,
-                sBis);
-        addReservierungen(Buchungsnummer, hilfsRes);
+        Date datumBIS = null;
+        try {
+            datumBIS = Konstanten.df.parse(sBis);
+        } catch (ParseException e) {
+            System.out.println("Falsches Zeitformat");
+        }
+        Date datumVON = null;
+        try {
+            datumVON = Konstanten.df.parse(sVon);
+        } catch (ParseException e) {
+            System.out.println("Falsches Zeitformat");
+        }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("ERFOLG!");
-        alert.setContentText("Raum erfolgreich gebucht");
-        alert.showAndWait();
 
         for (String key : getAllReservations().keySet()) {
 
-            Reservierungen res = getReservation(key);
-            if (res.getsRaumNummer().equals(roomnumber)) {
+            Date datumVONRES = null;
+            try {
+                datumVONRES = Konstanten.df.parse(DatenErzeugnung.getReservation(key).getsAbwann());
+            } catch (ParseException e) {
+                System.out.println("Falsches Zeitformat");
+            }
+            Date datumBISRES = null;
+            try {
+                datumBISRES = Konstanten.df.parse(DatenErzeugnung.getReservation(key).getsBisWann());
+            } catch (ParseException e) {
+                System.out.println("Falsches Zeitformat");
+            }
 
-                DatenErzeugnung.getHmapRooms().get(roomnumber).setVerfuegbarkeit(false);
+            if (DatenErzeugnung.getReservation(key).getsRaumNummer().equals(roomnumber)) {
 
+                if ((datumVON.compareTo(datumVONRES) >= 0) && (datumVON.compareTo(datumBISRES) <= 0)) {
+                    zuFrüh = false;
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("FALSCHE ZEIT");
+                    alert.setContentText("Raum " + DatenErzeugnung.getReservation(key).getsRaumNummer() + " ist " +
+                            "am " + sVon + " noch nicht frei!");
+                    alert.showAndWait();
+                    FrequentlyUsedButtons.goToReservation(mouseEvent);
+                    break;
+                }
+                if ((datumBIS.compareTo(datumBISRES) <= 0) && (datumBIS.compareTo(datumVONRES) >= 0)) {
+                    zuSpät = false;
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("FALSCHE ZEIT");
+                    alert.setContentText("Raum " + DatenErzeugnung.getReservation(key).getsRaumNummer() + " ist " +
+                            "am " + sBis + " noch nicht frei!");
+                    alert.showAndWait();
+                    FrequentlyUsedButtons.goToReservation(mouseEvent);
+                    break;
+                }
             }
         }
+        if (zuSpät && zuFrüh) {
+            int iRand = rand.ResRandomNumber();
+            String Buchungsnummer = "BU" + iRand;
 
-        FrequentlyUsedButtons.goToReservation(mouseEvent);
+            Reservierungen hilfsRes = new Reservierungen(
+                    Buchungsnummer,
+                    log_in_controller.sName,
+                    roomnumber,
+                    sVon,
+                    sBis);
+            addReservierungen(Buchungsnummer, hilfsRes);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ERFOLG!");
+            alert.setContentText("Raum erfolgreich gebucht");
+            alert.showAndWait();
+
+            FrequentlyUsedButtons.goToReservation(mouseEvent);
+        }
+
+
     }
 
     public void safeAndCloseClick(MouseEvent mouseEvent) throws IOException {

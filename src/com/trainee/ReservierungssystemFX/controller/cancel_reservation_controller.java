@@ -28,18 +28,17 @@ public class cancel_reservation_controller implements Initializable {
     }
 
     private void loadData() {
-        String[] hilfsString = DatenErzeugnung.getHmapRooms().keySet().toArray(new String[0]);
         ArrayList<String> hilfsArray = new ArrayList<>();
-        for (int i = 0; i < hilfsString.length; i++) {
-            if (!DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getVerfuegbarkeit()) {
+        for (String key : getAllReservations().keySet()) {
+            if (DatenErzeugnung.getReservation(key).getSmaName().equals( log_in_controller.sName)) {
                 hilfsArray.add(
-                        DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getBezeichnung() +
+                        DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getBezeichnung() +
                                 ", " +
-                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getRaumNr() +
+                                DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getRaumNr() +
                                 ", " +
-                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getEigenschaften() +
+                                DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getEigenschaften() +
                                 ", " +
-                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getKapazitaet());
+                                DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getKapazitaet());
             }
         }
         selectCancelRoom.getItems().addAll(hilfsArray);
