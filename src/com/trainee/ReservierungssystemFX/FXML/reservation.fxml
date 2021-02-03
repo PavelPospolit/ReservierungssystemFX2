@@ -87,7 +87,7 @@
                </font>
             </Text>
             <Button fx:id="bookingButton" layoutX="144.0" layoutY="277.0" mnemonicParsing="false" onMouseClicked="#bookingClick" styleClass="log_in_button_color_and_size" stylesheets="@../stylesheets/stylesheet.css" text="Buchen!" />
-            <Button fx:id="safeAndBack" layoutX="20.0" layoutY="359.0" mnemonicParsing="false" text="Speichern und zurück" />
+            <Button fx:id="safeAndBack" layoutX="20.0" layoutY="359.0" mnemonicParsing="false" onMouseClicked="#SafeAndBackClick" text="Speichern und zu Start" />
             <Button fx:id="safeAndClose" layoutX="262.0" layoutY="359.0" mnemonicParsing="false" onMouseClicked="#safeAndCloseClick" text="Speichern und beenden" />
          </children>
       </AnchorPane>

@@ -4,7 +4,6 @@ import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
 import com.trainee.ReservierungssystemFX.resources.Konstanten;
 import javafx.scene.control.Alert;
 
-import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -122,18 +121,18 @@ public class Schreiben {
         }
         resLeeren.write("");
         resLeeren.close();
-        hilfsString = DatenErzeugnung.getHmapReservierungen().keySet().toArray(new String[0]);
+        hilfsString = DatenErzeugnung.getAllReservations().keySet().toArray(new String[0]);
         for (int i = 0; i < hilfsString.length; i++) {
             resWriter.write(
-                    DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsReservierungsnummer() +
+                    DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsReservierungsnummer() +
                             ", " +
-                            DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getSmaName() +
+                            DatenErzeugnung.getAllReservations().get(hilfsString[i]).getSmaName() +
                             ", " +
-                            DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsRaumNummer() +
+                            DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsRaumNummer() +
                             ", " +
-                            DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsAbwann()+
+                            DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsAbwann()+
                             ", "+
-                            DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsBisWann());
+                            DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsBisWann());
             resWriter.newLine();
         }
         resWriter.close();

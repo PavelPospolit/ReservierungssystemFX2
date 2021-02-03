@@ -25,8 +25,12 @@ public class DatenErzeugnung {
         return hmapMitarbeiter;
     }
 
-    public static HashMap<String, Reservierungen> getHmapReservierungen() {
+    public static HashMap<String, Reservierungen> getAllReservations() {
         return hmapReservierungen;
+    }
+
+    public static Reservierungen getReservation(String key){
+        return hmapReservierungen.get(key);
     }
 
     public static HashMap<String, Raeume> getHmapRooms() {
@@ -41,8 +45,8 @@ public class DatenErzeugnung {
         hmapRaeume = hmapRooms1;
     }
 
-    public static void setHmapReservierungen(HashMap<String, Reservierungen> hmapReservierungen1) {
-        hmapReservierungen = hmapReservierungen1;
+    public static void addReservierungen(String stringKey, Reservierungen resClass) {
+        hmapReservierungen.put(stringKey, resClass);
     }
 
     public static void leseAlle() throws IOException {
@@ -85,7 +89,7 @@ public class DatenErzeugnung {
                             alhilfe[j + 2],
                             alhilfe[j + 3],
                             alhilfe[j + 4]);
-                    hmapReservierungen.put(Reservierungen.getsReservierungsnummer(), res);
+                    addReservierungen(res.getsReservierungsnummer(), res);
                 }
             }
         }

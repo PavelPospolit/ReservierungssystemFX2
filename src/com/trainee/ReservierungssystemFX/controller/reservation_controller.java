@@ -16,10 +16,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
+
+import static com.trainee.ReservierungssystemFX.resources.DatenErzeugnung.*;
 
 public class reservation_controller implements Initializable {
     @FXML
@@ -57,43 +56,83 @@ public class reservation_controller implements Initializable {
                                 ", " +
                                 DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getEigenschaften() +
                                 ", " +
-                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getKapazitaet() +
-                                ", " +
-                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getVerfuegbarkeit());
+                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getKapazitaet());
             }
         }
         selectRoom.getItems().addAll(hilfsArray);
     }
 
-    public void bookingClick(javafx.scene.input.MouseEvent mouseEvent) throws ParseException {
+    public void bookingClick(MouseEvent mouseEvent) throws IOException {
         Random_Number_Generator rand = new Random_Number_Generator();
-        String sBis = (endDate.getValue().toString() +";"+endTime.getText());
-        String sVon = (startDate.getValue().toString()+";"+startTime.getText());
-        String roomNumber = selectRoom.getValue();
-        String[] roombnumbersplitter = roomNumber.split(",");
+
+        String sBis = (endDate.getValue().toString() + ";" + endTime.getText());
+
+        String sVon = (startDate.getValue().toString() + ";" + startTime.getText());
+
+        String roomnumber = selectRoom.getValue().split(", ")[1];
+
         int iRand = rand.ResRandomNumber();
         String Buchungsnummer = "BU" + iRand;
-        HashMap<String, Reservierungen> hilfsmap = new HashMap<>();
+
+
+
+
         Reservierungen hilfsRes = new Reservierungen(
                 Buchungsnummer,
                 log_in_controller.sNameue,
-                roombnumbersplitter[0],
+                roomnumber,
                 sVon,
                 sBis);
-        hilfsmap.put(Buchungsnummer, hilfsRes);
-        String[] hilfsString = DatenErzeugnung.getHmapReservierungen().keySet().toArray(new String[0]);
-        for (int i = 0; i < hilfsString.length; i++) {
-            hilfsmap.put(hilfsString[i], DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]));
+        addReservierungen(Buchungsnummer, hilfsRes);
+
+        for(String key: getAllReservations().keySet()) {
+            System.out.println(key);
+            System.out.println(DatenErzeugnung.getAllReservations().get(key).getsReservierungsnummer());
+            System.out.println(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer());
+            System.out.println(DatenErzeugnung.getAllReservations().get(key).getsAbwann());
+            System.out.println(DatenErzeugnung.getAllReservations().get(key).getsBisWann());
+
         }
-        DatenErzeugnung.setHmapReservierungen(hilfsmap);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+
+
+
+
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ERFOLG!");
         alert.setContentText("Raum erfolgreich gebucht");
-
         alert.showAndWait();
-        if (DatenErzeugnung.getHmapRooms().containsKey(roomNumber)) {
-            DatenErzeugnung.getHmapRooms().get(roomNumber).setVerfuegbarkeit(false);
+
+
+
+        for(String key: getAllReservations().keySet()){
+
+            Reservierungen res = getReservation(key);
+            if(res.getsRaumNummer().equals(roomnumber)){
+
+                DatenErzeugnung.getHmapRooms().get(roomnumber).setVerfuegbarkeit(false);
+
+            }
         }
+
+
+        /*String[] hilfsStringKeyset = getAllReservations().keySet().toArray(new String[0]);
+        for (int j = 0; j < hilfsStringKeyset.length; j++) {
+            String raumnummer = getAllReservations().get(hilfsStringKeyset[j]).getsRaumNummer();
+            if (DatenErzeugnung.getHmapRooms().get(raumnummer).getRaumNr().equals(roomnumber)) {
+                DatenErzeugnung.getHmapRooms().get(roomnumber).setVerfuegbarkeit(false);
+            }
+        }*/
+
+
+
+        Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/reservation.fxml"));
+        Scene sceneRegestrierung = new Scene(parentRegestrierung);
+        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        window.setScene(sceneRegestrierung);
+        window.setTitle("Reservierung");
+        window.show();
     }
 
     public void safeAndCloseClick(MouseEvent mouseEvent) throws IOException {
@@ -118,5 +157,14 @@ public class reservation_controller implements Initializable {
         window.setTitle("Buchung Zurückziehen");
         window.show();
 
+    }
+
+    public void SafeAndBackClick(MouseEvent mouseEvent) throws IOException {
+        Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/log_in.fxml"));
+        Scene sceneRegestrierung = new Scene(parentRegestrierung);
+        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        window.setScene(sceneRegestrierung);
+        window.setTitle("Anmeldung");
+        window.show();
     }
 }

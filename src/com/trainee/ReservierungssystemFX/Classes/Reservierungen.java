@@ -1,4 +1,4 @@
-package com.trainee.ReservierungssystemFX.Classes;/*Create a com.trainee.ReservierungssystemFX.Class.Reservierungen Constructor*/
+package com.trainee.ReservierungssystemFX.Classes;/*Create a Reservierungen Constructor*/
 
 public class Reservierungen {
     private static String sReservierungsnummer;
@@ -19,23 +19,8 @@ public class Reservierungen {
     public static String getsRaumNummer() {
         return sRaumNummer;
     }
-    public static void setiReservierungsnummer(int iReservierungsnummer) {
-        Reservierungen.sReservierungsnummer = sReservierungsnummer;
-    }
-    public static void setSmaName(String smaName) {
-        Reservierungen.smaName = smaName;
-    }
-    public static void setsBisWann(String sBisWann) {
-        Reservierungen.sBisWann = sBisWann;
-    }
-    public static void setsRaumNummer(String sRaumNummer) {
-        Reservierungen.sRaumNummer = sRaumNummer;
-    }
     public static String getsAbwann() {
         return sAbwann;
-    }
-    public static void setsAbwann(String sAbwann) {
-        Reservierungen.sAbwann = sAbwann;
     }
     public Reservierungen(String resNummer, String maName, String raumnummer, String abwann, String biswann) {
         sReservierungsnummer = resNummer;

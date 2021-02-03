@@ -21,7 +21,7 @@ public class Zeit_Vergleich extends Thread {
     public void run() {
         while (true) {
             String date = Konstanten.df.format(new Date());
-            String[] hilfsString = DatenErzeugnung.getHmapReservierungen().keySet().toArray(new String[0]);
+            String[] hilfsString = DatenErzeugnung.getAllReservations().keySet().toArray(new String[0]);
             for (int i = 0; i < hilfsString.length; i++) {
                 Date date1 = null;
                 try {
@@ -31,13 +31,13 @@ public class Zeit_Vergleich extends Thread {
                 }
                 Date date2 = null;
                 try {
-                    date2 = Konstanten.df.parse(DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsBisWann());
+                    date2 = Konstanten.df.parse(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsBisWann());
                 } catch (ParseException e) {
                     System.out.println("Falsches Zeitformat");
                 }
                 if (date1.compareTo(date2) >= 0) {
-                    DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getHmapReservierungen().get(hilfsString[i]).getsRaumNummer()).setVerfuegbarkeit(true);
-                    DatenErzeugnung.getHmapReservierungen().remove(hilfsString[i]);
+                    DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsRaumNummer()).setVerfuegbarkeit(true);
+                    DatenErzeugnung.getAllReservations().remove(hilfsString[i]);
                 }
             }
             try {
