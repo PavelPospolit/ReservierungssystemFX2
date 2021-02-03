@@ -1,3 +1,2 @@
-BU48450500, pavel.pospolit@telekom.de, R006, 2021-02-04;08:00, 2021-02-05;09:00
-BU48450501, pavel.pospolit@telekom.de, R006, 2021-02-04;08:00, 2021-02-05;09:00
 BU48450502, pavel.pospolit@telekom.de, R006, 2021-02-04;08:00, 2021-02-05;09:00
+

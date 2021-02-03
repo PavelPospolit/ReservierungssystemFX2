@@ -1,7 +1,7 @@
 Büro 8, R008, Kaffemachine, 1, false
 Büro 17, R107, Tafel, 1, false
 Büro 9, R009, Beamer/Whiteboard, 2, false
-Büro 18, R108, Viel Platz; Whiteboard, 2, true
+Büro 18, R108, Viel Platz; Whiteboard, 2, false
 Büro 6, R006, Viel Platz; Whiteboard, 2, false
 Büro 15, R105, Viel Platz; Whiteboard, 2, true
 Büro 7, R007, Beamer/Whiteboard, 2, false

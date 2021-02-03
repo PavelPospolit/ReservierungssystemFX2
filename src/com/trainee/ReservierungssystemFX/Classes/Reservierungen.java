@@ -1,27 +1,32 @@
 package com.trainee.ReservierungssystemFX.Classes;/*Create a Reservierungen Constructor*/
 
 public class Reservierungen {
-    private static String sReservierungsnummer;
-    private static String smaName;
-    private static String sBisWann;
-    private static String sRaumNummer;
-    private static String sAbwann;
+    private String sReservierungsnummer;
+    private String smaName;
+    private String sBisWann;
+    private String sRaumNummer;
+    private String sAbwann;
 
-    public static String getsReservierungsnummer() {
+    public String getsReservierungsnummer() {
         return sReservierungsnummer;
     }
-    public static String getSmaName() {
+
+    public String getSmaName() {
         return smaName;
     }
-    public static String getsBisWann() {
+
+    public String getsBisWann() {
         return sBisWann;
     }
-    public static String getsRaumNummer() {
+
+    public String getsRaumNummer() {
         return sRaumNummer;
     }
-    public static String getsAbwann() {
+
+    public String getsAbwann() {
         return sAbwann;
     }
+
     public Reservierungen(String resNummer, String maName, String raumnummer, String abwann, String biswann) {
         sReservierungsnummer = resNummer;
         smaName = maName;
