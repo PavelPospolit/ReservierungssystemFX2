@@ -81,7 +81,7 @@
                   <Insets right="57.0" />
                </GridPane.margin>
             </ChoiceBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Raum:" wrappingWidth="78.01171875" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reservierung wählen:" wrappingWidth="315.01171875" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                <font>
                   <Font size="27.0" />
                </font>
@@ -96,7 +96,7 @@
             </Button>
             <Button fx:id="cancelClick" alignment="BOTTOM_CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#CancelClick" styleClass="log_in_button_color_and_size" stylesheets="@../stylesheets/stylesheet.css" text="Zurückgeben" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <GridPane.margin>
-                  <Insets right="57.0" />
+                  <Insets bottom="45.0" right="57.0" />
                </GridPane.margin>
             </Button>
          </children>

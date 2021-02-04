@@ -30,36 +30,34 @@ public class cancel_reservation_controller implements Initializable {
         ArrayList<String> hilfsArray = new ArrayList<>();
         for (String key : getAllReservations().keySet()) {
             if (CreateData.getReservation(key).getSmaName().equals(log_in_controller.sName)) {
-                hilfsArray.add(
-                        CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getBezeichnung() +
-                                ", " +
-                                CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getRaumNr() +
-                                ", " +
-                                CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getEigenschaften() +
-                                ", " +
-                                CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getKapazitaet());
+                hilfsArray.add(CreateData.getReservation(key).getsReservierungsnummer() +
+                        ", " +
+                        CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getRaumNr() +
+                        ", " +
+                        CreateData.getReservation(key).getsAbwann()+
+                        ", "+
+                        CreateData.getReservation(key).getsBisWann());
             }
         }
         selectCancelRoom.getItems().addAll(hilfsArray);
     }
 
     public void CancelClick(MouseEvent mouseEvent) throws IOException {
-        String sZurueckNr = selectCancelRoom.getValue().split(", ")[1];
+        String sZurueckNr = selectCancelRoom.getValue().split(", ")[0];
 
         for (String key : getAllReservations().keySet()) {
 
-            if (CreateData.getReservation(key).getsRaumNummer().equals(sZurueckNr)) {
+            if (CreateData.getReservation(key).getsReservierungsnummer().equals(sZurueckNr)) {
 
                 CreateData.getAllReservations().remove(key);
-
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ERFOLG!");
+                alert.setContentText("Raum erfolgreich zurückgegeben");
+                alert.showAndWait();
+                FrequentlyUsedButtons.cancelReservatrionButton(mouseEvent);
+                break;
             }
-
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("ERFOLG!");
-        alert.setContentText("Raum erfolgreich zurückgegeben");
-        alert.showAndWait();
-        FrequentlyUsedButtons.cancelReservatrionButton(mouseEvent);
     }
 
     public void onMouseClickshowRes(MouseEvent mouseEvent) throws IOException {

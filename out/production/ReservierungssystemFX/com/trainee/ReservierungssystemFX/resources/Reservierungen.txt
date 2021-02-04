@@ -1,2 +1,1 @@
-BU53121189, pavel.pospolit@telekom.de, R107, 2021-02-05;10:01, 2021-02-08;10:00
-BU31999455, pavel.pospolit@telekom.de, R107, 2021-02-04;10:00, 2021-02-05;10:00
+BU105373198, pavel.pospolit@telekom.de, R008, 2021-02-04;08:00, 2021-02-15;10:00
