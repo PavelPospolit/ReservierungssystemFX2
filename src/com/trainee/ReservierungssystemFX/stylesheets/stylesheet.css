@@ -2,6 +2,18 @@
 	-fx-background-color: rgb(226, 0, 116);
 	-fx-position: center;
 }
+.ColoringBtn{
+	-fx-background-color: rgb(200, 0, 100);
+	-fx-position: center;
+}
+.ColoringLabel{
+	-fx-background-color: rgb(180, 0, 100);
+    -fx-position:color;
+}
+.btnTextColor{
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+}
 .log_in_button_color_and_size{
     -fx-background-color: green;
     -fx-font-size: 25px;
