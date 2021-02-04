@@ -100,7 +100,7 @@
                </font>
             </Text>
             <Button fx:id="bookingButton" layoutX="144.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#bookingClick" styleClass="log_in_button_color_and_size" stylesheets="@../stylesheets/stylesheet.css" text="Buchen!" />
-            <Button fx:id="safeAndBack" layoutY="374.0" mnemonicParsing="false" onMouseClicked="#SafeAndBackClick" text="zurück" />
+            <Button fx:id="safeAndBack" layoutX="-23.5" layoutY="384.5" mnemonicParsing="false" onMouseClicked="#SafeAndBackClick" text="zurück" />
          </children>
       </AnchorPane>
    </right>

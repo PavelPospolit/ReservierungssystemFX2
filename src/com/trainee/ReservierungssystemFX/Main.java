@@ -21,10 +21,11 @@ public class Main extends Application{
         create_data.leseAlle();
         Parent parentAnmeldung = FXMLLoader.load(getClass().getResource("FXML/log_in.fxml"));
         primaryStage.setTitle("Anmeldung");
-        primaryStage.setScene(new Scene(parentAnmeldung));
+        primaryStage.setScene(new Scene(parentAnmeldung,600,400));
+        primaryStage.setHeight(440);
+        primaryStage.setWidth(630);
+        primaryStage.setResizable(false);
         primaryStage.show();
-        primaryStage.setWidth(600);
-        primaryStage.setHeight(400);
         primaryStage.setOnCloseRequest(e -> {
             try {
                 FrequentlyUsedButtons.closeAndExit();
