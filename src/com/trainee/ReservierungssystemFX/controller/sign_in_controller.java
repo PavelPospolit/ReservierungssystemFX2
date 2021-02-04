@@ -40,7 +40,7 @@ public class sign_in_controller {
 
     public void onMouseClick(MouseEvent mouseEvent) throws IOException {
         Parent parentRegestrierung = FXMLLoader.load(getClass().getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/log_in.fxml"));
-        Scene sceneRegestrierung = new Scene(parentRegestrierung);
+        Scene sceneRegestrierung = new Scene(parentRegestrierung, 600, 400);
         Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         window.setScene(sceneRegestrierung);
         window.setTitle("Anmeldung");

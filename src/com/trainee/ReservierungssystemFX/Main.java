@@ -23,6 +23,8 @@ public class Main extends Application{
         primaryStage.setTitle("Anmeldung");
         primaryStage.setScene(new Scene(parentAnmeldung));
         primaryStage.show();
+        primaryStage.setWidth(600);
+        primaryStage.setHeight(400);
         primaryStage.setOnCloseRequest(e -> {
             try {
                 FrequentlyUsedButtons.closeAndExit();
