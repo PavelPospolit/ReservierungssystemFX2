@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -45,6 +46,14 @@ public class FrequentlyUsedButtons {
         window.setTitle("Reservierung");
         window.show();
     }
+    public static void goToReservationKey(KeyEvent keyEvent)throws IOException{
+        Parent parentRegestrierung = FXMLLoader.load(FrequentlyUsedButtons.class.getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/reservation.fxml"));
+        Scene sceneRegestrierung = new Scene(parentRegestrierung);
+        Stage window = (Stage) ((Node) keyEvent.getSource()).getScene().getWindow();
+        window.setScene(sceneRegestrierung);
+        window.setTitle("Reservierung");
+        window.show();
+    }
     public static void goToSignIn(MouseEvent mouseEvent) throws IOException{
         Parent parentRegestrierung = FXMLLoader.load(FrequentlyUsedButtons.class.getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/sign_in.fxml"));
         Scene sceneRegestrierung = new Scene(parentRegestrierung);
@@ -53,6 +62,15 @@ public class FrequentlyUsedButtons {
         window.setTitle("Regestrierung");
         window.show();
     }
+    public static void goToSignInKey(KeyEvent keyEvent) throws IOException{
+        Parent parentRegestrierung = FXMLLoader.load(FrequentlyUsedButtons.class.getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/sign_in.fxml"));
+        Scene sceneRegestrierung = new Scene(parentRegestrierung);
+        Stage window = (Stage) ((Node) keyEvent.getSource()).getScene().getWindow();
+        window.setScene(sceneRegestrierung);
+        window.setTitle("Regestrierung");
+        window.show();
+    }
+
     public static void closeAndExit() throws IOException {
         Schreiben s = new Schreiben();
         System.exit(0);

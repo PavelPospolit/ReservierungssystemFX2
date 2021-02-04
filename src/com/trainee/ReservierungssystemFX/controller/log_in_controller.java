@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -74,6 +76,40 @@ public class log_in_controller {
 
         if (bPasswort) {
             FrequentlyUsedButtons.goToReservation(mouseEvent_logIn);
+        }
+    }
+
+    public void logInEnter(KeyEvent keyEvent) throws IOException {
+        if(keyEvent.getCode()==KeyCode.ENTER){
+            boolean bEmail = true, bPasswort = true;
+            sName = getTextFieldEmail().getText();
+            for (String key : CreateData.getAllEmployees().keySet()) {
+                if (CreateData.getEmployee(key).getsMaName().equals(sName) &&
+                        (CreateData.getEmployee(key).getsMaName().contains("@") &&
+                                CreateData.getEmployee(key).getsMaName().contains("."))) {
+                    errorWindowEmail.setText("");
+                    bEmail = true;
+                    break;
+                } else {
+                    bEmail = false;
+                    errorWindowEmail.setText("ungültige Emailadresse");
+                }
+            }
+            String sEinloggpasswort = getTextFieldPassword().getText();
+            for (String key : CreateData.getAllEmployees().keySet()) {
+                if (bEmail && CreateData.getEmployee(key).getsPasswort().equals(sEinloggpasswort)) {
+                    bPasswort = true;
+                    errorWindowPassword.setText("");
+                    break;
+                } else {
+                    bPasswort = false;
+                    errorWindowPassword.setText("Ungültiges Passwort!");
+                }
+            }
+
+            if (bPasswort) {
+                FrequentlyUsedButtons.goToReservationKey(keyEvent);
+            }
         }
     }
 }

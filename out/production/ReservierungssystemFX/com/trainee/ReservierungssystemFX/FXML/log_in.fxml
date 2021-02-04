@@ -100,7 +100,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <PasswordField fx:id="textFieldPassword" prefHeight="30.0" prefWidth="300.0" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
+            <PasswordField fx:id="textFieldPassword" onKeyPressed="#testKey" prefHeight="30.0" prefWidth="300.0" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin></PasswordField>
