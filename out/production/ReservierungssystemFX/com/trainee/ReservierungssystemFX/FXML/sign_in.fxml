@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -30,14 +30,22 @@
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
+               <styleClass>
+                  <String fx:value="ColoringBtn" />
+                  <String fx:value="btnTextColor" />
+               </styleClass>
             </Button>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" style="-fx-background-color: white;" text="Regestrierung" GridPane.rowIndex="1">
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" text="Regestrierung" GridPane.rowIndex="1">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
+               <styleClass>
+                  <String fx:value="ColoringLabel" />
+                  <String fx:value="btnTextColor" />
+               </styleClass>
             </Label>
          </children>
          <opaqueInsets>
@@ -46,31 +54,76 @@
       </GridPane>
    </left>
    <center>
-      <AnchorPane prefHeight="400.0" prefWidth="423.0" BorderPane.alignment="CENTER">
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="58.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="103.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="21.0" valignment="BASELINE" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="42.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="102.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="29.0" valignment="BASELINE" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="32.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="47.0" valignment="BASELINE" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <TextField fx:id="textFieldEmail" layoutX="59.0" layoutY="54.0" prefHeight="30.0" prefWidth="300.0" />
-            <Button fx:id="sign_in_button" layoutX="134.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#logInOnMouseClicked" styleClass="log_in_button_color_and_size" stylesheets="@../stylesheets/stylesheet.css" text="Sign in!" />
-            <Label fx:id="errorWindowDoubleEmail" alignment="CENTER" layoutX="59.0" layoutY="84.0" prefWidth="300.0" styleClass="Error_Label_Font_Color" stylesheets="@../stylesheets/stylesheet.css" />
-            <Label fx:id="errorWindowPassword" alignment="CENTER" layoutX="59.0" layoutY="183.0" prefWidth="300.0" styleClass="Error_Label_Font_Color" stylesheets="@../stylesheets/stylesheet.css" />
-            <Label layoutX="59.0" layoutY="27.0" text="Email-Adresse:">
+            <TextField fx:id="textFieldEmail" prefHeight="30.0" prefWidth="300.0" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin></TextField>
+            <Button fx:id="sign_in_button" mnemonicParsing="false" onMouseClicked="#logInOnMouseClicked" styleClass="log_in_button_color_and_size" stylesheets="@../stylesheets/stylesheet.css" text="Sign in!" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="45.0" />
+               </GridPane.margin></Button>
+            <Label fx:id="errorWindowDoubleEmail" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" styleClass="Error_Label_Font_Color" stylesheets="@../stylesheets/stylesheet.css" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin></Label>
+            <Label fx:id="errorWindowPassword" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" styleClass="Error_Label_Font_Color" stylesheets="@../stylesheets/stylesheet.css" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin></Label>
+            <Label maxWidth="1.7976931348623157E308" text="Email-Adresse:">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin>
             </Label>
-            <Label layoutX="59.0" layoutY="126.0" text="Passwort:">
+            <Label maxWidth="1.7976931348623157E308" text="Passwort:" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin>
             </Label>
-            <PasswordField fx:id="textFieldPassword" layoutX="59.0" layoutY="153.0" prefHeight="30.0" prefWidth="300.0" />
-            <Label layoutX="59.0" layoutY="213.0" text="Passwort wiederholen:">
+            <PasswordField fx:id="textFieldPassword" prefHeight="30.0" prefWidth="300.0" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin></PasswordField>
+            <Label maxWidth="1.7976931348623157E308" text="Passwort wiederholen:" GridPane.rowIndex="6">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin>
             </Label>
-            <PasswordField fx:id="textFieldPassword2" layoutX="59.0" layoutY="240.0" prefHeight="30.0" prefWidth="300.0" />
-            <Label fx:id="errorWindowPassword2" alignment="CENTER" layoutX="59.0" layoutY="270.0" prefWidth="300.0" styleClass="Error_Label_Font_Color" stylesheets="@../stylesheets/stylesheet.css" />
+            <PasswordField fx:id="textFieldPassword2" prefHeight="30.0" prefWidth="300.0" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin></PasswordField>
+            <Label fx:id="errorWindowPassword2" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" styleClass="Error_Label_Font_Color" stylesheets="@../stylesheets/stylesheet.css" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets left="1.0" right="1.0" />
+               </GridPane.margin></Label>
          </children>
-      </AnchorPane>
+      </GridPane>
    </center>
 </BorderPane>

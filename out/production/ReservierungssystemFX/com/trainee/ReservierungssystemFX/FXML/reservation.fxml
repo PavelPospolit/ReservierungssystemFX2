@@ -27,7 +27,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" text="Reservierung">
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" text="Reservieren">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>

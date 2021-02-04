@@ -81,12 +81,12 @@
                   <Insets right="57.0" />
                </GridPane.margin>
             </ChoiceBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Raum:" wrappingWidth="78.01171875" GridPane.columnIndex="1">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Raum:" wrappingWidth="78.01171875" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                <font>
                   <Font size="27.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="57.0" />
+                  <Insets />
                </GridPane.margin>
             </Text>
             <Button fx:id="safeAndBack" mnemonicParsing="false" onMouseClicked="#SafeAndBackClick" text="zurück" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
