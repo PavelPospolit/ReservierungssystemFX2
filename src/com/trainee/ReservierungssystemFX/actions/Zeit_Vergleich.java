@@ -1,7 +1,7 @@
 package com.trainee.ReservierungssystemFX.actions;
 
-import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
-import com.trainee.ReservierungssystemFX.resources.Konstanten;
+import com.trainee.ReservierungssystemFX.resources.CreateData;
+import com.trainee.ReservierungssystemFX.resources.Constants;
 import javafx.scene.control.Alert;
 
 import java.text.ParseException;
@@ -20,29 +20,29 @@ import java.util.Date;
 public class Zeit_Vergleich extends Thread {
     public void run() {
         while (true) {
-            String date = Konstanten.df.format(new Date());
-            String[] hilfsString = DatenErzeugnung.getAllReservations().keySet().toArray(new String[0]);
+            String date = Constants.df.format(new Date());
+            String[] hilfsString = CreateData.getAllReservations().keySet().toArray(new String[0]);
             for (int i = 0; i < hilfsString.length; i++) {
                 Date aktuellesDatum = null;
                 try {
-                    aktuellesDatum = Konstanten.df.parse(date);
+                    aktuellesDatum = Constants.df.parse(date);
                 } catch (ParseException e) {
                     System.out.println("Falsches Zeitformat");
                 }
                 Date bisDatum = null;
                 try {
-                    bisDatum = Konstanten.df.parse(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsBisWann());
+                    bisDatum = Constants.df.parse(CreateData.getAllReservations().get(hilfsString[i]).getsBisWann());
                 } catch (ParseException e) {
                     System.out.println("Falsches Zeitformat");
                 }
                 Date abDatum = null;
                 try {
-                    abDatum = Konstanten.df.parse(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsAbwann());
+                    abDatum = Constants.df.parse(CreateData.getAllReservations().get(hilfsString[i]).getsAbwann());
                 } catch (ParseException e) {
                     System.out.println("Falsches Zeitformat");
                 }
                 if ((aktuellesDatum.compareTo(bisDatum) >= 0)) {
-                    DatenErzeugnung.getAllReservations().remove(hilfsString[i]);
+                    CreateData.getAllReservations().remove(hilfsString[i]);
                 }
             }
             try {

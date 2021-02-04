@@ -1,6 +1,8 @@
 holger.trebes@telekom.de, MA107826748, Trebes
 melanie.schnur@telekom.de, MA87814996, Schnur
 thomas.grebe@telekom.de, MA54314210, Grebe
+David.John@gmail.com, MA70869086, John
 pavel.pospolit@telekom.de, MA1597863410, Pospolit
 lars.holbein@telekom.de, MA69017909, Holbein
+sidney.fricke@telekom.de, MA33678921, 12345678
 janik.sigmund.bulnes@telekom.de, MA108273082, SiegmundB

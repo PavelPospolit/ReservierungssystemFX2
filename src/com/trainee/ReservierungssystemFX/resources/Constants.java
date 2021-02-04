@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
  *font, colors, Border, paths,...;
  */
 
-public class Konstanten {
+public class Constants {
 
     public static  final Font Listen_Font = new Font("TeleNeo Office", Font.PLAIN, 20);
     public static  final Border Listen_Border = new LineBorder(new java.awt.Color(170, 20, 150));

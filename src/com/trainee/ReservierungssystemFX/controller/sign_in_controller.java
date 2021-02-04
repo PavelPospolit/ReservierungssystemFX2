@@ -2,7 +2,7 @@ package com.trainee.ReservierungssystemFX.controller;
 
 import com.trainee.ReservierungssystemFX.Classes.Mitarbeiter;
 import com.trainee.ReservierungssystemFX.actions.Random_Number_Generator;
-import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
+import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,8 +51,8 @@ public class sign_in_controller {
         bPassword = true;
         sEmail = textFieldEmail.getText();
         sPassword = textFieldPassword.getText();
-        for (String key : DatenErzeugnung.getAllEmployees().keySet()) {
-            if (DatenErzeugnung.getEmployee(key).getsMaName().equals(sEmail)) {
+        for (String key : CreateData.getAllEmployees().keySet()) {
+            if (CreateData.getEmployee(key).getsMaName().equals(sEmail)) {
 
                 bEmail = false;
                 errorWindowDoubleEmail.setText("Mitarbeiter " + sEmail + " bereits vorhanden!\nBitte Einloggen!");
@@ -89,7 +89,7 @@ public class sign_in_controller {
                     employeeNumber,
                     sPassword
             );
-            DatenErzeugnung.addEmployee(employee.getsMitarbeiterID(), employee);
+            CreateData.addEmployee(employee.getsMitarbeiterID(), employee);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("ERFOLG!");

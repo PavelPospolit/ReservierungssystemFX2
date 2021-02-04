@@ -1,6 +1,6 @@
 package com.trainee.ReservierungssystemFX.controller;
 
-import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
+import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,10 +48,10 @@ public class log_in_controller {
     public void logInOnMouseClicked(MouseEvent mouseEvent_logIn) throws IOException {
         boolean bEmail = true, bPasswort = true;
         sName = getTextFieldEmail().getText();
-        for (String key : DatenErzeugnung.getAllEmployees().keySet()) {
-            if (DatenErzeugnung.getEmployee(key).getsMaName().equals(sName) &&
-                    (DatenErzeugnung.getEmployee(key).getsMaName().contains("@") &&
-                            DatenErzeugnung.getEmployee(key).getsMaName().contains("."))) {
+        for (String key : CreateData.getAllEmployees().keySet()) {
+            if (CreateData.getEmployee(key).getsMaName().equals(sName) &&
+                    (CreateData.getEmployee(key).getsMaName().contains("@") &&
+                            CreateData.getEmployee(key).getsMaName().contains("."))) {
                 errorWindowEmail.setText("");
                 bEmail = true;
                 break;
@@ -61,8 +61,8 @@ public class log_in_controller {
             }
         }
         String sEinloggpasswort = getTextFieldPassword().getText();
-        for (String key : DatenErzeugnung.getAllEmployees().keySet()) {
-            if (bEmail && DatenErzeugnung.getEmployee(key).getsPasswort().equals(sEinloggpasswort)) {
+        for (String key : CreateData.getAllEmployees().keySet()) {
+            if (bEmail && CreateData.getEmployee(key).getsPasswort().equals(sEinloggpasswort)) {
                 bPasswort = true;
                 errorWindowPassword.setText("");
                 break;

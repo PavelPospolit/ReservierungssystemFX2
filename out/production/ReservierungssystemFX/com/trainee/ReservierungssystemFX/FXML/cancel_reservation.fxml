@@ -61,8 +61,7 @@
                </font>
             </Text>
             <Button fx:id="cancelClick" layoutX="114.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#CancelClick" styleClass="log_in_button_color_and_size" stylesheets="@../stylesheets/stylesheet.css" text="Zurückgeben" />
-            <Button fx:id="safeAndBack" layoutX="20.0" layoutY="359.0" mnemonicParsing="false" onMouseClicked="#SafeAndBackClick" text="Speichern und zu Start" />
-            <Button fx:id="safeAndClose" layoutX="262.0" layoutY="359.0" mnemonicParsing="false" onMouseClicked="#safeAndCloseClick" text="Speichern und beenden" />
+            <Button fx:id="safeAndBack" layoutY="374.0" mnemonicParsing="false" onMouseClicked="#SafeAndBackClick" text="zurück" />
          </children>
       </AnchorPane>
    </right>

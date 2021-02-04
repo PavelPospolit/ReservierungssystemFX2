@@ -1,6 +1,6 @@
 package com.trainee.ReservierungssystemFX.controller;
 
-import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
+import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static com.trainee.ReservierungssystemFX.resources.DatenErzeugnung.getAllReservations;
+import static com.trainee.ReservierungssystemFX.resources.CreateData.getAllReservations;
 
 public class cancel_reservation_controller implements Initializable {
     public Button ReservationsButton;
@@ -29,15 +29,15 @@ public class cancel_reservation_controller implements Initializable {
     private void loadData() {
         ArrayList<String> hilfsArray = new ArrayList<>();
         for (String key : getAllReservations().keySet()) {
-            if (DatenErzeugnung.getReservation(key).getSmaName().equals(log_in_controller.sName)) {
+            if (CreateData.getReservation(key).getSmaName().equals(log_in_controller.sName)) {
                 hilfsArray.add(
-                        DatenErzeugnung.getAllRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getBezeichnung() +
+                        CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getBezeichnung() +
                                 ", " +
-                                DatenErzeugnung.getAllRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getRaumNr() +
+                                CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getRaumNr() +
                                 ", " +
-                                DatenErzeugnung.getAllRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getEigenschaften() +
+                                CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getEigenschaften() +
                                 ", " +
-                                DatenErzeugnung.getAllRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getKapazitaet());
+                                CreateData.getAllRooms().get(CreateData.getAllReservations().get(key).getsRaumNummer()).getKapazitaet());
             }
         }
         selectCancelRoom.getItems().addAll(hilfsArray);
@@ -48,9 +48,9 @@ public class cancel_reservation_controller implements Initializable {
 
         for (String key : getAllReservations().keySet()) {
 
-            if (DatenErzeugnung.getReservation(key).getsRaumNummer().equals(sZurueckNr)) {
+            if (CreateData.getReservation(key).getsRaumNummer().equals(sZurueckNr)) {
 
-                DatenErzeugnung.getAllReservations().remove(key);
+                CreateData.getAllReservations().remove(key);
 
             }
 

@@ -2,7 +2,7 @@ package com.trainee.ReservierungssystemFX;
 
 
 import com.trainee.ReservierungssystemFX.actions.Zeit_Vergleich;
-import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
+import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        DatenErzeugnung create_data = new DatenErzeugnung();
+        CreateData create_data = new CreateData();
         create_data.leseAlle();
         Parent parentAnmeldung = FXMLLoader.load(getClass().getResource("FXML/log_in.fxml"));
         primaryStage.setTitle("Anmeldung");

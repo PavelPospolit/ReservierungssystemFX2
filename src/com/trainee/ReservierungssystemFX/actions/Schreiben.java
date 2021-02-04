@@ -1,14 +1,14 @@
 package com.trainee.ReservierungssystemFX.actions;
 
-import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
-import com.trainee.ReservierungssystemFX.resources.Konstanten;
+import com.trainee.ReservierungssystemFX.resources.CreateData;
+import com.trainee.ReservierungssystemFX.resources.Constants;
 import javafx.scene.control.Alert;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static com.trainee.ReservierungssystemFX.resources.DatenErzeugnung.getAllReservations;
+import static com.trainee.ReservierungssystemFX.resources.CreateData.getAllReservations;
 
 /*Empties existent .txt files (to avoid data being doubled)
  * gets the Keys of the Hashmaps and puts them into hilsString variable
@@ -24,7 +24,7 @@ public class Schreiben {
 
     static {
         try {
-            mWriter = new BufferedWriter(new FileWriter(Konstanten.mFile, true));
+            mWriter = new BufferedWriter(new FileWriter(Constants.mFile, true));
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Schreibfehler");
@@ -36,7 +36,7 @@ public class Schreiben {
 
     static {
         try {
-            rWriter = new BufferedWriter(new FileWriter(Konstanten.rFile, true));
+            rWriter = new BufferedWriter(new FileWriter(Constants.rFile, true));
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Schreibfehler");
@@ -48,7 +48,7 @@ public class Schreiben {
 
     static {
         try {
-            resWriter = new BufferedWriter(new FileWriter(Konstanten.resFile, true));
+            resWriter = new BufferedWriter(new FileWriter(Constants.resFile, true));
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Schreibfehler");
@@ -60,7 +60,7 @@ public class Schreiben {
 
     public Schreiben() throws IOException {
         try {
-            mLeeren = new BufferedWriter(new FileWriter(Konstanten.mFile));
+            mLeeren = new BufferedWriter(new FileWriter(Constants.mFile));
         } catch (IOException e) {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -71,19 +71,19 @@ public class Schreiben {
         }
         mLeeren.write("");
         mLeeren.close();
-        for (String key : DatenErzeugnung.getAllEmployees().keySet()) {
+        for (String key : CreateData.getAllEmployees().keySet()) {
             mWriter.write(
-                    DatenErzeugnung.getEmployee(key).getsMaName() +
+                    CreateData.getEmployee(key).getsMaName() +
                             ", " +
-                            DatenErzeugnung.getEmployee(key).getsMitarbeiterID() +
+                            CreateData.getEmployee(key).getsMitarbeiterID() +
                             ", " +
-                            DatenErzeugnung.getEmployee(key).getsPasswort());
+                            CreateData.getEmployee(key).getsPasswort());
             mWriter.newLine();
         }
         mWriter.close();
 
         try {
-            rLeeren = new BufferedWriter(new FileWriter(Konstanten.rFile));
+            rLeeren = new BufferedWriter(new FileWriter(Constants.rFile));
         } catch (IOException e) {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -94,21 +94,21 @@ public class Schreiben {
         }
         rLeeren.write("");
         rLeeren.close();
-        for (String key: DatenErzeugnung.getAllRooms().keySet()) {
+        for (String key: CreateData.getAllRooms().keySet()) {
             rWriter.write(
-                    DatenErzeugnung.getRoom(key).getBezeichnung() +
+                    CreateData.getRoom(key).getBezeichnung() +
                             ", " +
-                            DatenErzeugnung.getRoom(key).getRaumNr() +
+                            CreateData.getRoom(key).getRaumNr() +
                             ", " +
-                            DatenErzeugnung.getRoom(key).getEigenschaften() +
+                            CreateData.getRoom(key).getEigenschaften() +
                             ", " +
-                            DatenErzeugnung.getRoom(key).getKapazitaet());
+                            CreateData.getRoom(key).getKapazitaet());
             rWriter.newLine();
         }
         rWriter.close();
 
         try {
-            resLeeren = new BufferedWriter(new FileWriter(Konstanten.resFile));
+            resLeeren = new BufferedWriter(new FileWriter(Constants.resFile));
         } catch (IOException e) {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -121,15 +121,15 @@ public class Schreiben {
         resLeeren.close();
         for(String key: getAllReservations().keySet()) {
             resWriter.write(
-                    DatenErzeugnung.getReservation(key).getsReservierungsnummer() +
+                    CreateData.getReservation(key).getsReservierungsnummer() +
                             ", " +
-                            DatenErzeugnung.getReservation(key).getSmaName() +
+                            CreateData.getReservation(key).getSmaName() +
                             ", " +
-                            DatenErzeugnung.getReservation(key).getsRaumNummer() +
+                            CreateData.getReservation(key).getsRaumNummer() +
                             ", " +
-                            DatenErzeugnung.getReservation(key).getsAbwann()+
+                            CreateData.getReservation(key).getsAbwann()+
                             ", "+
-                            DatenErzeugnung.getReservation(key).getsBisWann());
+                            CreateData.getReservation(key).getsBisWann());
             resWriter.newLine();
         }
         resWriter.close();

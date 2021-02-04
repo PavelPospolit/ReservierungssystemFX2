@@ -3,7 +3,6 @@ package com.trainee.ReservierungssystemFX.resources;
 import com.trainee.ReservierungssystemFX.Classes.Mitarbeiter;
 import com.trainee.ReservierungssystemFX.Classes.Raeume;
 import com.trainee.ReservierungssystemFX.Classes.Reservierungen;
-import com.trainee.ReservierungssystemFX.resources.Konstanten;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.util.HashMap;
  * creates 3 Hashmaps (hmapMitarbeiter, hmapRaeume, hmapReservierungen)
  * puts the Data from Onjects imto Hashmaps*/
 
-public class DatenErzeugnung {
+public class CreateData {
     static String sZeile;
     static final String UTF8_BOM = "\uFEFF";
     static String[] alhilfe;
@@ -63,18 +62,18 @@ public class DatenErzeugnung {
     }
 
     public static void leseAlle() throws IOException {
-        verarbeiteZeilen(Konstanten.mEinlesen);
-        verarbeiteZeilen(Konstanten.rEinlesen);
-        verarbeiteZeilen(Konstanten.resEinlesen);
+        verarbeiteZeilen(Constants.mEinlesen);
+        verarbeiteZeilen(Constants.rEinlesen);
+        verarbeiteZeilen(Constants.resEinlesen);
     }
 
     public static void verarbeiteZeilen(BufferedReader welcher) throws IOException {
-        for (int i = 0; (DatenErzeugnung.sZeile = welcher.readLine()) != null; i++) {
-            if (DatenErzeugnung.sZeile.startsWith(UTF8_BOM)) {
-                DatenErzeugnung.sZeile = DatenErzeugnung.sZeile.substring(1);
+        for (int i = 0; (CreateData.sZeile = welcher.readLine()) != null; i++) {
+            if (CreateData.sZeile.startsWith(UTF8_BOM)) {
+                CreateData.sZeile = CreateData.sZeile.substring(1);
             }
-            alhilfe = DatenErzeugnung.sZeile.split(", ");
-            if (welcher == Konstanten.mEinlesen) {
+            alhilfe = CreateData.sZeile.split(", ");
+            if (welcher == Constants.mEinlesen) {
                 for (int j = 0; j <= alhilfe.length - 2; j += 3) {
                     Mitarbeiter ma = new Mitarbeiter(
                             alhilfe[j],
@@ -83,7 +82,7 @@ public class DatenErzeugnung {
                     hmapMitarbeiter.put(ma.getsMitarbeiterID(), ma);
                 }
             }
-            if (welcher == Konstanten.rEinlesen) {
+            if (welcher == Constants.rEinlesen) {
                 for (int j = 0; j <= alhilfe.length - 4; j += 5) {
                     Raeume room = new Raeume(
                             alhilfe[j],
@@ -93,7 +92,7 @@ public class DatenErzeugnung {
                     hmapRaeume.put(room.getRaumNr(), room);
                 }
             }
-            if (welcher == Konstanten.resEinlesen) {
+            if (welcher == Constants.resEinlesen) {
                 for (int j = 0; j <= alhilfe.length - 4; j += 4) {
                     Reservierungen res = new Reservierungen(
                             alhilfe[j],
