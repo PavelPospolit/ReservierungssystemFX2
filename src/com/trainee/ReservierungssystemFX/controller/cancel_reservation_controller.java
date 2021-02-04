@@ -1,6 +1,5 @@
 package com.trainee.ReservierungssystemFX.controller;
 
-import com.trainee.ReservierungssystemFX.actions.Schreiben;
 import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.fxml.FXML;
@@ -30,15 +29,15 @@ public class cancel_reservation_controller implements Initializable {
     private void loadData() {
         ArrayList<String> hilfsArray = new ArrayList<>();
         for (String key : getAllReservations().keySet()) {
-            if (DatenErzeugnung.getReservation(key).getSmaName().equals( log_in_controller.sName)) {
+            if (DatenErzeugnung.getReservation(key).getSmaName().equals(log_in_controller.sName)) {
                 hilfsArray.add(
-                        DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getBezeichnung() +
+                        DatenErzeugnung.getAllRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getBezeichnung() +
                                 ", " +
-                                DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getRaumNr() +
+                                DatenErzeugnung.getAllRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getRaumNr() +
                                 ", " +
-                                DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getEigenschaften() +
+                                DatenErzeugnung.getAllRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getEigenschaften() +
                                 ", " +
-                                DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getKapazitaet());
+                                DatenErzeugnung.getAllRooms().get(DatenErzeugnung.getAllReservations().get(key).getsRaumNummer()).getKapazitaet());
             }
         }
         selectCancelRoom.getItems().addAll(hilfsArray);
@@ -54,11 +53,6 @@ public class cancel_reservation_controller implements Initializable {
                 DatenErzeugnung.getAllReservations().remove(key);
 
             }
-
-        }
-
-        if (DatenErzeugnung.getHmapRooms().containsKey(sZurueckNr)) {
-            DatenErzeugnung.getHmapRooms().get(sZurueckNr).setVerfuegbarkeit(true);
 
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -81,8 +75,4 @@ public class cancel_reservation_controller implements Initializable {
         FrequentlyUsedButtons.safeAndBack(mouseEvent);
     }
 
-    public void safeAndCloseClick(MouseEvent mouseEvent) throws IOException {
-        Schreiben s = new Schreiben();
-        System.exit(0);
-    }
 }

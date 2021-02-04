@@ -2,26 +2,16 @@ package com.trainee.ReservierungssystemFX.controller;
 
 import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.awt.event.KeyListener;
 import java.io.IOException;
-
-import com.trainee.ReservierungssystemFX.resources.Konstanten;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
-
 
 public class log_in_controller {
     @FXML
@@ -34,7 +24,7 @@ public class log_in_controller {
     private Label errorWindowPassword;
     @FXML
     static Button log_in_button;
-    static String sName="";
+    static String sName = "";
 
 
     public TextField getTextFieldEmail() {
@@ -58,12 +48,10 @@ public class log_in_controller {
     public void logInOnMouseClicked(MouseEvent mouseEvent_logIn) throws IOException {
         boolean bEmail = true, bPasswort = true;
         sName = getTextFieldEmail().getText();
-        String[] hilfsStringEmail = DatenErzeugnung.getHmapMitarbeiter().keySet().toArray(new String[0]);
-        for (int i = 0; i < hilfsStringEmail.length; i++) {
-            if ((hilfsStringEmail[i].equals(sName) ||
-                    DatenErzeugnung.getHmapMitarbeiter().get(hilfsStringEmail[i]).getsMaName().equals(sName))&&
-                    ( DatenErzeugnung.getHmapMitarbeiter().get(hilfsStringEmail[i]).getsMaName().contains("@") &&
-                            DatenErzeugnung.getHmapMitarbeiter().get(hilfsStringEmail[i]).getsMaName().contains(".")))  {
+        for (String key : DatenErzeugnung.getAllEmployees().keySet()) {
+            if (DatenErzeugnung.getEmployee(key).getsMaName().equals(sName) &&
+                    (DatenErzeugnung.getEmployee(key).getsMaName().contains("@") &&
+                            DatenErzeugnung.getEmployee(key).getsMaName().contains("."))) {
                 errorWindowEmail.setText("");
                 bEmail = true;
                 break;
@@ -73,9 +61,8 @@ public class log_in_controller {
             }
         }
         String sEinloggpasswort = getTextFieldPassword().getText();
-        String[] hilfsStringPassword = DatenErzeugnung.getHmapMitarbeiter().keySet().toArray(new String[0]);
-        for (int i = 0; i < hilfsStringPassword.length; i++) {
-            if (bEmail && DatenErzeugnung.getHmapMitarbeiter().get(hilfsStringPassword[i]).getsPasswort().equals(sEinloggpasswort)) {
+        for (String key : DatenErzeugnung.getAllEmployees().keySet()) {
+            if (bEmail && DatenErzeugnung.getEmployee(key).getsPasswort().equals(sEinloggpasswort)) {
                 bPasswort = true;
                 errorWindowPassword.setText("");
                 break;

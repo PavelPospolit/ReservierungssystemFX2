@@ -42,14 +42,7 @@ public class Zeit_Vergleich extends Thread {
                     System.out.println("Falsches Zeitformat");
                 }
                 if ((aktuellesDatum.compareTo(bisDatum) >= 0)) {
-                    DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsRaumNummer()).setVerfuegbarkeit(true);
                     DatenErzeugnung.getAllReservations().remove(hilfsString[i]);
-                }
-                if ((aktuellesDatum.compareTo(abDatum) < 0)) {
-                    DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsRaumNummer()).setVerfuegbarkeit(true);
-                }
-                if ((aktuellesDatum.compareTo(abDatum) >= 0)) {
-                    DatenErzeugnung.getHmapRooms().get(DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsRaumNummer()).setVerfuegbarkeit(false);
                 }
             }
             try {

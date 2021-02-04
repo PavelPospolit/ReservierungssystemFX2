@@ -21,24 +21,13 @@ public class DatenErzeugnung {
     private static HashMap<String, Raeume> hmapRaeume = new HashMap<>();
     private static HashMap<String, Reservierungen> hmapReservierungen = new HashMap<>();
 
-    public static HashMap<String, Mitarbeiter> getHmapMitarbeiter() {
-        return hmapMitarbeiter;
-    }
 
     public static HashMap<String, Reservierungen> getAllReservations() {
         return hmapReservierungen;
     }
 
-    public static Reservierungen getReservation(String key){
+    public static Reservierungen getReservation(String key) {
         return hmapReservierungen.get(key);
-    }
-
-    public static HashMap<String, Raeume> getHmapRooms() {
-        return hmapRaeume;
-    }
-
-    public static void setHmapMitarbeiter(HashMap<String, Mitarbeiter> hmapMitarbeiter1) {
-        hmapMitarbeiter = hmapMitarbeiter1;
     }
 
     public static void setHmapRooms(HashMap<String, Raeume> hmapRooms1) {
@@ -47,6 +36,30 @@ public class DatenErzeugnung {
 
     public static void addReservierungen(String stringKey, Reservierungen resClass) {
         hmapReservierungen.put(stringKey, resClass);
+    }
+
+    public static void addEmployee(String stringKey, Mitarbeiter eployeeClass) {
+        hmapMitarbeiter.put(stringKey, eployeeClass);
+    }
+
+    public static Mitarbeiter getEmployee(String key) {
+        return hmapMitarbeiter.get(key);
+    }
+
+    public static HashMap<String, Mitarbeiter> getAllEmployees() {
+        return hmapMitarbeiter;
+    }
+
+    public static void addRoom(String stringKey, Raeume roomClass) {
+        hmapRaeume.put(stringKey, roomClass);
+    }
+
+    public static Raeume getRoom(String key) {
+        return hmapRaeume.get(key);
+    }
+
+    public static HashMap<String, Raeume> getAllRooms() {
+        return hmapRaeume;
     }
 
     public static void leseAlle() throws IOException {
@@ -76,8 +89,7 @@ public class DatenErzeugnung {
                             alhilfe[j],
                             alhilfe[j + 1],
                             alhilfe[j + 2],
-                            Integer.parseInt(alhilfe[j + 3]),
-                            Boolean.parseBoolean(alhilfe[j + 4]));
+                            Integer.parseInt(alhilfe[j + 3]));
                     hmapRaeume.put(room.getRaumNr(), room);
                 }
             }

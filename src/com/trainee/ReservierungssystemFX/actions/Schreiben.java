@@ -8,6 +8,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static com.trainee.ReservierungssystemFX.resources.DatenErzeugnung.getAllReservations;
+
 /*Empties existent .txt files (to avoid data being doubled)
  * gets the Keys of the Hashmaps and puts them into hilsString variable
  * writes Data from Hashmaps into .txt file*/
@@ -69,14 +71,13 @@ public class Schreiben {
         }
         mLeeren.write("");
         mLeeren.close();
-        String[] hilfsString = DatenErzeugnung.getHmapMitarbeiter().keySet().toArray(new String[0]);
-        for (int i = 0; i < hilfsString.length; i++) {
+        for (String key : DatenErzeugnung.getAllEmployees().keySet()) {
             mWriter.write(
-                    DatenErzeugnung.getHmapMitarbeiter().get(hilfsString[i]).getsMaName() +
+                    DatenErzeugnung.getEmployee(key).getsMaName() +
                             ", " +
-                            hilfsString[i] +
+                            DatenErzeugnung.getEmployee(key).getsMitarbeiterID() +
                             ", " +
-                            DatenErzeugnung.getHmapMitarbeiter().get(hilfsString[i]).getsPasswort());
+                            DatenErzeugnung.getEmployee(key).getsPasswort());
             mWriter.newLine();
         }
         mWriter.close();
@@ -93,18 +94,15 @@ public class Schreiben {
         }
         rLeeren.write("");
         rLeeren.close();
-        hilfsString = DatenErzeugnung.getHmapRooms().keySet().toArray(new String[0]);
-        for (int i = 0; i < hilfsString.length; i++) {
+        for (String key: DatenErzeugnung.getAllRooms().keySet()) {
             rWriter.write(
-                    DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getBezeichnung() +
+                    DatenErzeugnung.getRoom(key).getBezeichnung() +
                             ", " +
-                            DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getRaumNr() +
+                            DatenErzeugnung.getRoom(key).getRaumNr() +
                             ", " +
-                            DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getEigenschaften() +
+                            DatenErzeugnung.getRoom(key).getEigenschaften() +
                             ", " +
-                            DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getKapazitaet() +
-                            ", " +
-                            DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getVerfuegbarkeit());
+                            DatenErzeugnung.getRoom(key).getKapazitaet());
             rWriter.newLine();
         }
         rWriter.close();
@@ -121,18 +119,17 @@ public class Schreiben {
         }
         resLeeren.write("");
         resLeeren.close();
-        hilfsString = DatenErzeugnung.getAllReservations().keySet().toArray(new String[0]);
-        for (int i = 0; i < hilfsString.length; i++) {
+        for(String key: getAllReservations().keySet()) {
             resWriter.write(
-                    DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsReservierungsnummer() +
+                    DatenErzeugnung.getReservation(key).getsReservierungsnummer() +
                             ", " +
-                            DatenErzeugnung.getAllReservations().get(hilfsString[i]).getSmaName() +
+                            DatenErzeugnung.getReservation(key).getSmaName() +
                             ", " +
-                            DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsRaumNummer() +
+                            DatenErzeugnung.getReservation(key).getsRaumNummer() +
                             ", " +
-                            DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsAbwann()+
+                            DatenErzeugnung.getReservation(key).getsAbwann()+
                             ", "+
-                            DatenErzeugnung.getAllReservations().get(hilfsString[i]).getsBisWann());
+                            DatenErzeugnung.getReservation(key).getsBisWann());
             resWriter.newLine();
         }
         resWriter.close();

@@ -3,15 +3,11 @@ package com.trainee.ReservierungssystemFX.Classes;/*Create a com.trainee.Reservi
 public class Raeume {
     private final String sBezeichnung;
     private final int iKapazitaet;
-    private boolean bVerfuegbarkeit;
     private String sEigenschaften;
     private final String sRaumNr;
 
     public String getRaumNr() {
         return sRaumNr;
-    }
-    public boolean getVerfuegbarkeit() {
-        return bVerfuegbarkeit;
     }
     public int getKapazitaet() {
         return iKapazitaet;
@@ -25,16 +21,11 @@ public class Raeume {
     public void setEigenschaften(String eigenschaften) {
         sEigenschaften = eigenschaften;
     }
-    public void setVerfuegbarkeit(boolean verfuegbarkeit) {
-        bVerfuegbarkeit = verfuegbarkeit;
-    }
 
-    public Raeume(String bezeichnung, String raumnummer, String eigenschaften, int kapazitaet, boolean verfuegbarkeit) {
+    public Raeume(String bezeichnung, String raumnummer, String eigenschaften, int kapazitaet) {
         sBezeichnung = bezeichnung;
         sEigenschaften = eigenschaften;
         iKapazitaet = kapazitaet;
         sRaumNr = raumnummer;
-        bVerfuegbarkeit = verfuegbarkeit;
-
     }
 }

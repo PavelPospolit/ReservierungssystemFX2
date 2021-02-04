@@ -11,14 +11,14 @@ public class Random_Number_Generator {
         int iRand;
         do {
             iRand = (int) (Math.random() * 99999999) + 10000000;
-        } while (DatenErzeugnung.getHmapMitarbeiter().containsKey(("MA"+iRand)));
+        } while (DatenErzeugnung.getAllEmployees().containsKey(("MA"+iRand)));
         return iRand;
     }
     public  int ResRandomNumber(){
         int iRand;
         do {
             iRand = (int) (Math.random() * 99999999) + 10000000;
-        } while (DatenErzeugnung.getHmapMitarbeiter().containsKey(("BU"+iRand)));
+        } while (DatenErzeugnung.getAllReservations().containsKey(("BU"+iRand)));
         return iRand;
     }
 }

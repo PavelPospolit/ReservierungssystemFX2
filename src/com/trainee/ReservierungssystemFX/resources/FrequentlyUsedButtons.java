@@ -1,6 +1,7 @@
 package com.trainee.ReservierungssystemFX.resources;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import com.trainee.ReservierungssystemFX.actions.Schreiben;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -43,5 +44,17 @@ public class FrequentlyUsedButtons {
         window.setScene(sceneRegestrierung);
         window.setTitle("Reservierung");
         window.show();
+    }
+    public static void goToSignIn(MouseEvent mouseEvent) throws IOException{
+        Parent parentRegestrierung = FXMLLoader.load(FrequentlyUsedButtons.class.getClassLoader().getResource("com/trainee/ReservierungssystemFX/FXML/sign_in.fxml"));
+        Scene sceneRegestrierung = new Scene(parentRegestrierung);
+        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        window.setScene(sceneRegestrierung);
+        window.setTitle("Regestrierung");
+        window.show();
+    }
+    public static void closeAndExit() throws IOException {
+        Schreiben s = new Schreiben();
+        System.exit(0);
     }
 }

@@ -2,7 +2,6 @@ package com.trainee.ReservierungssystemFX.controller;
 
 import com.trainee.ReservierungssystemFX.Classes.Reservierungen;
 import com.trainee.ReservierungssystemFX.actions.Random_Number_Generator;
-import com.trainee.ReservierungssystemFX.actions.Schreiben;
 import com.trainee.ReservierungssystemFX.resources.DatenErzeugnung;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import com.trainee.ReservierungssystemFX.resources.Konstanten;
@@ -14,17 +13,17 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.ResourceBundle;
 
-import static com.trainee.ReservierungssystemFX.resources.DatenErzeugnung.*;
+import static com.trainee.ReservierungssystemFX.resources.DatenErzeugnung.addReservierungen;
+import static com.trainee.ReservierungssystemFX.resources.DatenErzeugnung.getAllReservations;
 
 public class reservation_controller implements Initializable {
-    String date = Konstanten.df.format(new Date());
     @FXML
     public Button showReservationsButton;
     public Button returnRoomButton;
-    @FXML
-    Button safeAndClose;
     @FXML
     DatePicker startDate;
     @FXML
@@ -39,7 +38,6 @@ public class reservation_controller implements Initializable {
     ChoiceBox<String> selectRoom;
     boolean zuFrüh = true;
     boolean zuSpät = true;
-    boolean rightRoom;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,19 +45,17 @@ public class reservation_controller implements Initializable {
     }
 
     private void loadData() {
-        String[] hilfsString = DatenErzeugnung.getHmapRooms().keySet().toArray(new String[0]);
         ArrayList<String> hilfsArray = new ArrayList<>();
-        for (int i = 0; i < hilfsString.length; i++) {
-            if (DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getVerfuegbarkeit()) {
-                hilfsArray.add(
-                        DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getBezeichnung() +
-                                ", " +
-                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getRaumNr() +
-                                ", " +
-                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getEigenschaften() +
-                                ", " +
-                                DatenErzeugnung.getHmapRooms().get(hilfsString[i]).getKapazitaet());
-            }
+        for (String key : DatenErzeugnung.getAllRooms().keySet()) {
+            hilfsArray.add(
+                    DatenErzeugnung.getRoom(key).getBezeichnung() +
+                            ", " +
+                            DatenErzeugnung.getRoom(key).getRaumNr() +
+                            ", " +
+                            DatenErzeugnung.getRoom(key).getEigenschaften() +
+                            ", " +
+                            DatenErzeugnung.getRoom(key).getKapazitaet());
+
         }
         selectRoom.getItems().addAll(hilfsArray);
     }
@@ -147,11 +143,6 @@ public class reservation_controller implements Initializable {
         }
 
 
-    }
-
-    public void safeAndCloseClick(MouseEvent mouseEvent) throws IOException {
-        Schreiben s = new Schreiben();
-        System.exit(0);
     }
 
     public void onMouseClickshowRes(MouseEvent mouseEvent) throws IOException {
