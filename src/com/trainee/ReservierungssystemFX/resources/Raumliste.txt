@@ -1,4 +1,4 @@
-Büro 8, R008, Kaffemachine, 1
+Büro 8, R008, Kaffeemaschine, 1
 Büro 17, R107, Tafel, 1
 Büro 9, R009, Beamer/Whiteboard, 2
 Büro 18, R108, Viel Platz; Whiteboard, 2
