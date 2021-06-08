@@ -1,5 +1,6 @@
 package com.trainee.ReservierungssystemFX.controller;
 
+import com.trainee.ReservierungssystemFX.resources.Constants;
 import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.fxml.Initializable;
@@ -9,8 +10,10 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.split;
 import static com.trainee.ReservierungssystemFX.resources.CreateData.getAllReservations;
 
 public class show_reservations_controller implements Initializable {
@@ -41,14 +44,23 @@ public class show_reservations_controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ZeigeListe();
     }
-    public void ZeigeListe(){
 
-        for(String key: getAllReservations().keySet()) {
-            BuchungsNummer.setText(BuchungsNummer.getText() + CreateData.getAllReservations().get(key).getSmaName().split("@")[0]+"\n");
-            RaumNummer.setText(RaumNummer.getText()+ CreateData.getAllReservations().get(key).getsRaumNummer()+"\n");
-            BuchungVon.setText(BuchungVon.getText()+ CreateData.getAllReservations().get(key).getsAbwann()+"\n");
-            BuchungBis.setText(BuchungBis.getText()+ CreateData.getAllReservations().get(key).getsBisWann()+"\n");
+    public void ZeigeListe() {
+        try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
+            String SQL = "SELECT * FROM Employees E INNER JOIN Reservations RE ON E.EmployeeID=RE.EmployeeID";
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                String startingDate = rs.getDate("Starting_Date") + "; " + rs.getTime("Starting_Time");
+                String endingDate = rs.getDate("Ending_Date") + "; " + rs.getTime("Ending_Time");
+                BuchungsNummer.setText(BuchungsNummer.getText() + rs.getString("Emailaddress").split("@")[0] + "\n");
+                RaumNummer.setText(RaumNummer.getText() + rs.getInt("Roomnumber") + "\n");
+                BuchungVon.setText(BuchungVon.getText() + startingDate + "\n");
+                BuchungBis.setText(BuchungBis.getText() + endingDate + "\n");
 
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
