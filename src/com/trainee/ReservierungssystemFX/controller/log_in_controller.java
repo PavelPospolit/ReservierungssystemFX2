@@ -1,5 +1,6 @@
 package com.trainee.ReservierungssystemFX.controller;
 
+import com.trainee.ReservierungssystemFX.resources.Constants;
 import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.*;
 
 public class log_in_controller {
     @FXML
@@ -48,30 +50,20 @@ public class log_in_controller {
     }
 
     public void logInOnMouseClicked(MouseEvent mouseEvent_logIn) throws IOException {
-        boolean bEmail = true, bPasswort = true;
-        sName = getTextFieldEmail().getText();
-        for (String key : CreateData.getAllEmployees().keySet()) {
-            if (CreateData.getEmployee(key).getsMaName().equals(sName) &&
-                    (CreateData.getEmployee(key).getsMaName().contains("@") &&
-                            CreateData.getEmployee(key).getsMaName().contains("."))) {
-                errorWindowEmail.setText("");
-                bEmail = true;
-                break;
-            } else {
-                bEmail = false;
-                errorWindowEmail.setText("ungültige Emailadresse");
-            }
-        }
+        boolean bPasswort = false;
         String sEinloggpasswort = getTextFieldPassword().getText();
-        for (String key : CreateData.getAllEmployees().keySet()) {
-            if (bEmail && CreateData.getEmployee(key).getsPasswort().equals(sEinloggpasswort)) {
+        sName = getTextFieldEmail().getText();
+        try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
+            String SQL = "SELECT * FROM dbo.Employees WHERE Emailaddress like'" + sName + "' AND Employee_Password like'" + sEinloggpasswort + "'";
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
                 bPasswort = true;
-                errorWindowPassword.setText("");
-                break;
-            } else {
-                bPasswort = false;
-                errorWindowPassword.setText("Ungültiges Passwort!");
             }
+            if (!rs.next()) {
+                errorWindowEmail.setText("ungültige Einloggdaten");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
 
         if (bPasswort) {
@@ -80,31 +72,21 @@ public class log_in_controller {
     }
 
     public void logInEnter(KeyEvent keyEvent) throws IOException {
-        if(keyEvent.getCode()==KeyCode.ENTER){
-            boolean bEmail = true, bPasswort = true;
-            sName = getTextFieldEmail().getText();
-            for (String key : CreateData.getAllEmployees().keySet()) {
-                if (CreateData.getEmployee(key).getsMaName().equals(sName) &&
-                        (CreateData.getEmployee(key).getsMaName().contains("@") &&
-                                CreateData.getEmployee(key).getsMaName().contains("."))) {
-                    errorWindowEmail.setText("");
-                    bEmail = true;
-                    break;
-                } else {
-                    bEmail = false;
-                    errorWindowEmail.setText("ungültige Emailadresse");
-                }
-            }
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            boolean bPasswort = false;
             String sEinloggpasswort = getTextFieldPassword().getText();
-            for (String key : CreateData.getAllEmployees().keySet()) {
-                if (bEmail && CreateData.getEmployee(key).getsPasswort().equals(sEinloggpasswort)) {
+            sName = getTextFieldEmail().getText();
+            try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
+                String SQL = "SELECT * FROM dbo.Employees WHERE Emailaddress like'" + sName + "' AND Employee_Password like'" + sEinloggpasswort + "'";
+                ResultSet rs = stmt.executeQuery(SQL);
+                while (rs.next()) {
                     bPasswort = true;
-                    errorWindowPassword.setText("");
-                    break;
-                } else {
-                    bPasswort = false;
-                    errorWindowPassword.setText("Ungültiges Passwort!");
                 }
+                if (!rs.next()) {
+                    errorWindowEmail.setText("ungültige Einloggdaten");
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
             }
 
             if (bPasswort) {
