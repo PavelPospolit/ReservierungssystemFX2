@@ -1,8 +1,6 @@
 package com.trainee.ReservierungssystemFX.controller;
 
-import com.trainee.ReservierungssystemFX.Classes.Reservierungen;
 import com.trainee.ReservierungssystemFX.actions.Random_Number_Generator;
-import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import com.trainee.ReservierungssystemFX.resources.Constants;
 import javafx.fxml.FXML;
@@ -17,9 +15,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-
-import static com.trainee.ReservierungssystemFX.resources.CreateData.addReservierungen;
-import static com.trainee.ReservierungssystemFX.resources.CreateData.getAllReservations;
 
 public class reservation_controller implements Initializable {
     @FXML
@@ -119,16 +114,17 @@ public class reservation_controller implements Initializable {
                 } catch (ParseException e) {
                     System.out.println("Falsches Zeitformat");
                 }
-                if ((datumVON.compareTo(datumVONRES) >= 0) && (datumVON.compareTo(datumBISRES) <= 0)) {
-                    zuFrüh = false;
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("FALSCHE ZEIT");
-                    alert.setContentText("Raum " + rsres.getInt("Roomnumber") + " ist " +
-                            "am " + sVonDate + " ;" + sVonTime + " noch nicht frei!");
-                    alert.showAndWait();
-                    FrequentlyUsedButtons.goToReservation(mouseEvent);
-                    break;
-                }
+                if (rsres.getInt("Roomnumber") == Integer.parseInt(roomnumber)){
+                    if ((datumVON.compareTo(datumVONRES) >= 0) && (datumVON.compareTo(datumBISRES) <= 0)) {
+                        zuFrüh = false;
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("FALSCHE ZEIT");
+                        alert.setContentText("Raum " + rsres.getInt("Roomnumber") + " ist " +
+                                "am " + sVonDate + " ;" + sVonTime + " noch nicht frei!");
+                        alert.showAndWait();
+                        FrequentlyUsedButtons.goToReservation(mouseEvent);
+                        break;
+                    }
                 if ((datumBIS.compareTo(datumBISRES) <= 0) && (datumBIS.compareTo(datumVONRES) >= 0)) {
                     zuSpät = false;
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -139,6 +135,7 @@ public class reservation_controller implements Initializable {
                     FrequentlyUsedButtons.goToReservation(mouseEvent);
                     break;
                 }
+            }
             }
             String SQLemp = "SELECT * FROM Employees WHERE Emailaddress like'" + log_in_controller.sName + "'";
             ResultSet rsemp = stmt.executeQuery(SQLemp);

@@ -1,7 +1,6 @@
 package com.trainee.ReservierungssystemFX.controller;
 
 import com.trainee.ReservierungssystemFX.resources.Constants;
-import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.split;
-import static com.trainee.ReservierungssystemFX.resources.CreateData.getAllReservations;
 
 public class show_reservations_controller implements Initializable {
     public Button returnRoomButton;

@@ -1,24 +1,19 @@
 package com.trainee.ReservierungssystemFX;
-
-
 import com.trainee.ReservierungssystemFX.actions.Zeit_Vergleich;
-import com.trainee.ReservierungssystemFX.resources.CreateData;
-import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.stage.WindowEvent;
 
 
 public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        CreateData create_data = new CreateData();
-        create_data.leseAlle();
         Parent parentAnmeldung = FXMLLoader.load(getClass().getResource("FXML/log_in.fxml"));
         primaryStage.setTitle("Anmeldung");
         primaryStage.setScene(new Scene(parentAnmeldung,600,400));
@@ -26,11 +21,11 @@ public class Main extends Application{
         primaryStage.setWidth(630);
         primaryStage.setResizable(false);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e -> {
-            try {
-                FrequentlyUsedButtons.closeAndExit();
-            } catch (IOException ioException) {
-                System.out.println("Schreibfehler, bitte Support kontaktieren!");
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent e) {
+                Platform.exit();
+                System.exit(0);
             }
         });
     }

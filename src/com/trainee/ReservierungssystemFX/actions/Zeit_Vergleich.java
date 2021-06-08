@@ -1,9 +1,9 @@
 package com.trainee.ReservierungssystemFX.actions;
 
-import com.trainee.ReservierungssystemFX.resources.CreateData;
 import com.trainee.ReservierungssystemFX.resources.Constants;
 import javafx.scene.control.Alert;
 
+import java.sql.*;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -21,38 +21,47 @@ public class Zeit_Vergleich extends Thread {
     public void run() {
         while (true) {
             String date = Constants.df.format(new Date());
-            String[] hilfsString = CreateData.getAllReservations().keySet().toArray(new String[0]);
-            for (int i = 0; i < hilfsString.length; i++) {
-                Date aktuellesDatum = null;
+            try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
+                String SQL = "SELECT * FROM dbo.Reservations";
+                ResultSet rs = stmt.executeQuery(SQL);
+                while (rs.next()) {
+                    String sdatumVONRES = rs.getDate("Starting_Date") + ";" + rs.getTime("Starting_Time");
+                    String sdatumBISRES = rs.getDate("Ending_Date") + ";" + rs.getTime("Ending_Time");
+                    Date aktuellesDatum = null;
+                    try {
+                        aktuellesDatum = Constants.df.parse(date);
+                    } catch (ParseException e) {
+                        System.out.println("Falsches Zeitformat");
+                    }
+                    Date bisDatum = null;
+                    try {
+                        bisDatum = Constants.df.parse(sdatumBISRES);
+                    } catch (ParseException e) {
+                        System.out.println("Falsches Zeitformat");
+                    }
+                    Date abDatum = null;
+                    try {
+                        abDatum = Constants.df.parse(sdatumVONRES);
+                    } catch (ParseException e) {
+                        System.out.println("Falsches Zeitformat");
+                    }
+                    if ((aktuellesDatum.compareTo(bisDatum) >= 0)) {
+                        PreparedStatement stat = con.prepareStatement("delete from Reservations where ReservationID like '"+rs.getInt("ReservationID")+"'");
+                        stat.executeUpdate();
+                    }
+                }
                 try {
-                    aktuellesDatum = Constants.df.parse(date);
-                } catch (ParseException e) {
-                    System.out.println("Falsches Zeitformat");
-                }
-                Date bisDatum = null;
-                try {
-                    bisDatum = Constants.df.parse(CreateData.getAllReservations().get(hilfsString[i]).getsBisWann());
-                } catch (ParseException e) {
-                    System.out.println("Falsches Zeitformat");
-                }
-                Date abDatum = null;
-                try {
-                    abDatum = Constants.df.parse(CreateData.getAllReservations().get(hilfsString[i]).getsAbwann());
-                } catch (ParseException e) {
-                    System.out.println("Falsches Zeitformat");
-                }
-                if ((aktuellesDatum.compareTo(bisDatum) >= 0)) {
-                    CreateData.getAllReservations().remove(hilfsString[i]);
-                }
-            }
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Aktualisierungsfehler");
-                alert.setContentText("Es ist ein Fehler beim Zeitvergleich aufgetreten, bitte Support kontaktieren!");
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Aktualisierungsfehler");
+                    alert.setContentText("Es ist ein Fehler beim Zeitvergleich aufgetreten, bitte Support kontaktieren!");
 
-                alert.showAndWait();
+                    alert.showAndWait();
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

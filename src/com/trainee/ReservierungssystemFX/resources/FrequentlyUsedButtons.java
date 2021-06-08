@@ -1,7 +1,5 @@
 package com.trainee.ReservierungssystemFX.resources;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import com.trainee.ReservierungssystemFX.actions.Schreiben;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -71,8 +69,4 @@ public class FrequentlyUsedButtons {
         window.show();
     }
 
-    public static void closeAndExit() throws IOException {
-        Schreiben s = new Schreiben();
-        System.exit(0);
-    }
 }
