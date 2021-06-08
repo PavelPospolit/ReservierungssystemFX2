@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,66 +47,84 @@ public class reservation_controller implements Initializable {
 
     private void loadData() {
         ArrayList<String> hilfsArray = new ArrayList<>();
-        for (String key : CreateData.getAllRooms().keySet()) {
-            hilfsArray.add(
-                    CreateData.getRoom(key).getBezeichnung() +
-                            ", " +
-                            CreateData.getRoom(key).getRaumNr() +
-                            ", " +
-                            CreateData.getRoom(key).getEigenschaften() +
-                            ", " +
-                            CreateData.getRoom(key).getKapazitaet());
+        try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
+            String SQL = "SELECT * FROM dbo.Rooms";
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                hilfsArray.add(
+                        rs.getInt("Roomnumber") +
+                                ", " +
+                                rs.getString("Roomdescritpion") +
+                                ", " +
+                                rs.getString("Roomspecials") +
+                                ", " +
+                                rs.getInt("Roomcapacity"));
+            }
+            selectRoom.getItems().addAll(hilfsArray);
 
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        selectRoom.getItems().addAll(hilfsArray);
     }
 
     public void bookingClick(MouseEvent mouseEvent) throws IOException {
         Random_Number_Generator rand = new Random_Number_Generator();
 
-        String sBis = (endDate.getValue().toString() + ";" + endTime.getText());
+        String sBisDate = (endDate.getValue().toString());
+        String sBisTime = (endTime.getText());
+        Time tBisTime = Time.valueOf(sBisTime+":00");
 
-        String sVon = (startDate.getValue().toString() + ";" + startTime.getText());
+        String sVonDate = (startDate.getValue().toString());
+        String sVonTime = (startTime.getText());
+        Time tVonTime = Time.valueOf(sVonTime+":00");
 
-        String roomnumber = selectRoom.getValue().split(", ")[1];
+        String roomnumber = selectRoom.getValue().split(", ")[0];
 
         Date datumBIS = null;
         try {
-            datumBIS = Constants.df.parse(sBis);
+            datumBIS = Constants.df.parse(sBisDate + ";" + sBisTime);
         } catch (ParseException e) {
-            System.out.println("Falsches Zeitformat");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("FEHLER!");
+            alert.setContentText("Falsches Zeitformat!");
+            alert.showAndWait();
         }
         Date datumVON = null;
         try {
-            datumVON = Constants.df.parse(sVon);
+            datumVON = Constants.df.parse(sVonDate + ";" + sVonTime);
         } catch (ParseException e) {
-            System.out.println("Falsches Zeitformat");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("FEHLER!");
+            alert.setContentText("Falsches Zeitformat!");
+            alert.showAndWait();
         }
 
+        try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
+            String SQLres = "SELECT * FROM dbo.Reservations";
+            ResultSet rsres = stmt.executeQuery(SQLres);
+            while (rsres.next()) {
+                String sdatumVONRES = rsres.getDate("Starting_Date") + ";" + rsres.getTime("Starting_Time");
+                String sdatumBISRES = rsres.getDate("Ending_Date") + ";" + rsres.getTime("Ending_Time");
 
-        for (String key : getAllReservations().keySet()) {
 
-            Date datumVONRES = null;
-            try {
-                datumVONRES = Constants.df.parse(CreateData.getReservation(key).getsAbwann());
-            } catch (ParseException e) {
-                System.out.println("Falsches Zeitformat");
-            }
-            Date datumBISRES = null;
-            try {
-                datumBISRES = Constants.df.parse(CreateData.getReservation(key).getsBisWann());
-            } catch (ParseException e) {
-                System.out.println("Falsches Zeitformat");
-            }
-
-            if (CreateData.getReservation(key).getsRaumNummer().equals(roomnumber)) {
-
+                Date datumVONRES = null;
+                try {
+                    datumVONRES = Constants.df.parse(sdatumVONRES);
+                } catch (ParseException e) {
+                    System.out.println("Falsches Zeitformat");
+                }
+                Date datumBISRES = null;
+                try {
+                    datumBISRES = Constants.df.parse(sdatumBISRES);
+                } catch (ParseException e) {
+                    System.out.println("Falsches Zeitformat");
+                }
                 if ((datumVON.compareTo(datumVONRES) >= 0) && (datumVON.compareTo(datumBISRES) <= 0)) {
                     zuFrüh = false;
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("FALSCHE ZEIT");
-                    alert.setContentText("Raum " + CreateData.getReservation(key).getsRaumNummer() + " ist " +
-                            "am " + sVon + " noch nicht frei!");
+                    alert.setContentText("Raum " + rsres.getInt("Roomnumber") + " ist " +
+                            "am " + sVonDate + " ;" + sVonTime + " noch nicht frei!");
                     alert.showAndWait();
                     FrequentlyUsedButtons.goToReservation(mouseEvent);
                     break;
@@ -114,32 +133,41 @@ public class reservation_controller implements Initializable {
                     zuSpät = false;
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("FALSCHE ZEIT");
-                    alert.setContentText("Raum " + CreateData.getReservation(key).getsRaumNummer() + " ist " +
-                            "am " + sBis + " noch nicht frei!");
+                    alert.setContentText("Raum " + rsres.getInt("Roomnumber") + " ist " +
+                            "am " + sBisDate + " ;" + sBisTime + " noch nicht frei!");
                     alert.showAndWait();
                     FrequentlyUsedButtons.goToReservation(mouseEvent);
                     break;
                 }
             }
-        }
-        if (zuSpät && zuFrüh) {
-            int iRand = rand.ResRandomNumber();
-            String Buchungsnummer = "BU" + iRand;
+            String SQLemp = "SELECT * FROM Employees WHERE Emailaddress like'" + log_in_controller.sName + "'";
+            ResultSet rsemp = stmt.executeQuery(SQLemp);
+            while (rsemp.next()) {
+                if (zuSpät && zuFrüh) {
+                    int iRand = rand.ResRandomNumber();
+                    String insert = "insert into Reservations values(?,?,?,?,?,?,?)";
+                    PreparedStatement insertstmt = con.prepareStatement(insert);
+                    insertstmt.setInt(1, iRand);
+                    insertstmt.setInt(2, rsemp.getInt("EmployeeID"));
+                    insertstmt.setInt(3, Integer.parseInt(roomnumber));
+                    insertstmt.setDate(4, java.sql.Date.valueOf(sVonDate));
+                    insertstmt.setTime(5, tVonTime);
+                    insertstmt.setDate(6, java.sql.Date.valueOf(sBisDate));
+                    insertstmt.setTime(7, tBisTime);
+                    insertstmt.execute();
 
-            Reservierungen hilfsRes = new Reservierungen(
-                    Buchungsnummer,
-                    log_in_controller.sName,
-                    roomnumber,
-                    sVon,
-                    sBis);
-            addReservierungen(Buchungsnummer, hilfsRes);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("ERFOLG!");
+                    alert.setContentText("Raum erfolgreich gebucht");
+                    alert.showAndWait();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERFOLG!");
-            alert.setContentText("Raum erfolgreich gebucht");
-            alert.showAndWait();
+                    FrequentlyUsedButtons.goToReservation(mouseEvent);
+                }
+            }
 
-            FrequentlyUsedButtons.goToReservation(mouseEvent);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
 
