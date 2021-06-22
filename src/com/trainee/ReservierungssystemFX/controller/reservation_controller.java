@@ -162,7 +162,6 @@ public class reservation_controller implements Initializable {
                 }
             }
 
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
