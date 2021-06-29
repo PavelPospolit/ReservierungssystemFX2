@@ -31,12 +31,11 @@ public class cancel_reservation_controller implements Initializable {
             String SQL = "SELECT * FROM Employees E INNER JOIN Reservations RE ON E.EmployeeID=RE.EmployeeID";
             ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                String startingDate = rs.getDate("Starting_Date") + "; " + rs.getTime("Starting_Time");
-                String endingDate = rs.getDate("Ending_Date") + "; " + rs.getTime("Ending_Time");
+                String rsRoomnumber = "Raumnummer: "+String.valueOf(rs.getInt("Roomnumber"));
+                String startingDate = "VON: " + rs.getDate("Starting_Date") + "; " + rs.getTime("Starting_Time");
+                String endingDate = "BIS: " + rs.getDate("Ending_Date") + "; " + rs.getTime("Ending_Time");
                 if (rs.getString("Emailaddress").equals(log_in_controller.sName)) {
-                    hilfsArray.add(rs.getInt("ReservationID") +
-                            ", " +
-                            rs.getInt("Roomnumber") +
+                    hilfsArray.add(rsRoomnumber +
                             ", " +
                             startingDate +
                             ", " +
