@@ -64,14 +64,31 @@ public class reservation_controller implements Initializable {
 
     public void bookingClick(MouseEvent mouseEvent) throws IOException {
         Random_Number_Generator rand = new Random_Number_Generator();
-
         String sBisDate = (endDate.getValue().toString());
         String sBisTime = (endTime.getText());
-        Time tBisTime = Time.valueOf(sBisTime+":00");
+        try {
+            Constants.df.parse(sBisTime);
+        } catch (ParseException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("FEHLER!");
+            alert.setContentText("Falsches Zeitformat!");
+            alert.showAndWait();
+            FrequentlyUsedButtons.goToReservation(mouseEvent);
+        }
+        Time tBisTime = Time.valueOf(sBisTime + ":00");
 
-        String sVonDate = (startDate.getValue().toString());
-        String sVonTime = (startTime.getText());
-        Time tVonTime = Time.valueOf(sVonTime+":00");
+        String sVonDate = (endDate.getValue().toString());
+        String sVonTime = (endTime.getText());
+        try {
+            Constants.df.parse(sVonTime);
+        } catch (ParseException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("FEHLER!");
+            alert.setContentText("Falsches Zeitformat!");
+            alert.showAndWait();
+            FrequentlyUsedButtons.goToReservation(mouseEvent);
+        }
+        Time tVonTime = Time.valueOf(sBisTime + ":00");
 
         String roomnumber = selectRoom.getValue().split(", ")[0];
 
@@ -114,7 +131,7 @@ public class reservation_controller implements Initializable {
                 } catch (ParseException e) {
                     System.out.println("Falsches Zeitformat");
                 }
-                if (rsres.getInt("Roomnumber") == Integer.parseInt(roomnumber)){
+                if (rsres.getInt("Roomnumber") == Integer.parseInt(roomnumber)) {
                     if ((datumVON.compareTo(datumVONRES) >= 0) && (datumVON.compareTo(datumBISRES) <= 0)) {
                         zuFrüh = false;
                         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -125,17 +142,17 @@ public class reservation_controller implements Initializable {
                         FrequentlyUsedButtons.goToReservation(mouseEvent);
                         break;
                     }
-                if ((datumBIS.compareTo(datumBISRES) <= 0) && (datumBIS.compareTo(datumVONRES) >= 0)) {
-                    zuSpät = false;
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("FALSCHE ZEIT");
-                    alert.setContentText("Raum " + rsres.getInt("Roomnumber") + " ist " +
-                            "am " + sBisDate + " ;" + sBisTime + " noch nicht frei!");
-                    alert.showAndWait();
-                    FrequentlyUsedButtons.goToReservation(mouseEvent);
-                    break;
+                    if ((datumBIS.compareTo(datumBISRES) <= 0) && (datumBIS.compareTo(datumVONRES) >= 0)) {
+                        zuSpät = false;
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("FALSCHE ZEIT");
+                        alert.setContentText("Raum " + rsres.getInt("Roomnumber") + " ist " +
+                                "am " + sBisDate + " ;" + sBisTime + " noch nicht frei!");
+                        alert.showAndWait();
+                        FrequentlyUsedButtons.goToReservation(mouseEvent);
+                        break;
+                    }
                 }
-            }
             }
             String SQLemp = "SELECT * FROM Employees WHERE Emailaddress like'" + log_in_controller.sName + "'";
             ResultSet rsemp = stmt.executeQuery(SQLemp);
