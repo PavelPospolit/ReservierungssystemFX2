@@ -21,6 +21,7 @@ import java.util.Date;
 
 public class Zeit_Vergleich extends Thread {
     String sNow;
+
     public void run() {
         while (true) {
             String date = Constants.df.format(new Date());
@@ -28,15 +29,12 @@ public class Zeit_Vergleich extends Thread {
                 String SQL = "SELECT * FROM dbo.Reservations";
                 ResultSet rs = stmt.executeQuery(SQL);
                 while (rs.next()) {
-                    String sdatumVONRES = rs.getDate("Starting_Date") + ";" + rs.getTime("Starting_Time");
                     String sdatumBISRES = rs.getDate("Ending_Date") + ";" + rs.getTime("Ending_Time");
-
-
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd;HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
                     sNow = dtf.format(now);
                     if ((Constants.df.parse(sNow).compareTo(Constants.df.parse(sdatumBISRES)) >= 0)) {
-                        PreparedStatement stat = con.prepareStatement("delete from Reservations where ReservationID like '"+rs.getInt("ReservationID")+"'");
+                        PreparedStatement stat = con.prepareStatement("delete from Reservations where ReservationID like '" + rs.getInt("ReservationID") + "'");
                         stat.executeUpdate();
                     }
                 }
