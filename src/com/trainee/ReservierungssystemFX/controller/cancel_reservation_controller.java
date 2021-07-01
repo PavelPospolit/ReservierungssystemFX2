@@ -35,7 +35,9 @@ public class cancel_reservation_controller implements Initializable {
                 String startingDate = "VON: " + rs.getDate("Starting_Date") + "; " + rs.getTime("Starting_Time");
                 String endingDate = "BIS: " + rs.getDate("Ending_Date") + "; " + rs.getTime("Ending_Time");
                 if (rs.getString("Emailaddress").equals(log_in_controller.sName)) {
-                    hilfsArray.add(rsRoomnumber +
+                    hilfsArray.add(rs.getInt("ReservationID")+
+                            ", "+
+                            rsRoomnumber +
                             ", " +
                             startingDate +
                             ", " +

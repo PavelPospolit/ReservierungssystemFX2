@@ -5,6 +5,8 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /*create a date format
@@ -18,6 +20,7 @@ import java.util.Date;
  * repeat until true (always) */
 
 public class Zeit_Vergleich extends Thread {
+    String sNow;
     public void run() {
         while (true) {
             String date = Constants.df.format(new Date());
@@ -27,25 +30,12 @@ public class Zeit_Vergleich extends Thread {
                 while (rs.next()) {
                     String sdatumVONRES = rs.getDate("Starting_Date") + ";" + rs.getTime("Starting_Time");
                     String sdatumBISRES = rs.getDate("Ending_Date") + ";" + rs.getTime("Ending_Time");
-                    Date aktuellesDatum = null;
-                    try {
-                        aktuellesDatum = Constants.df.parse(date);
-                    } catch (ParseException e) {
-                        System.out.println("Falsches Zeitformat");
-                    }
-                    Date bisDatum = null;
-                    try {
-                        bisDatum = Constants.df.parse(sdatumBISRES);
-                    } catch (ParseException e) {
-                        System.out.println("Falsches Zeitformat");
-                    }
-                    Date abDatum = null;
-                    try {
-                        abDatum = Constants.df.parse(sdatumVONRES);
-                    } catch (ParseException e) {
-                        System.out.println("Falsches Zeitformat");
-                    }
-                    if ((aktuellesDatum.compareTo(bisDatum) >= 0)) {
+
+
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd;HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
+                    sNow = dtf.format(now);
+                    if ((Constants.df.parse(sNow).compareTo(Constants.df.parse(sdatumBISRES)) >= 0)) {
                         PreparedStatement stat = con.prepareStatement("delete from Reservations where ReservationID like '"+rs.getInt("ReservationID")+"'");
                         stat.executeUpdate();
                     }
@@ -60,7 +50,7 @@ public class Zeit_Vergleich extends Thread {
                     alert.showAndWait();
                 }
 
-            } catch (SQLException e) {
+            } catch (SQLException | ParseException e) {
                 e.printStackTrace();
             }
         }

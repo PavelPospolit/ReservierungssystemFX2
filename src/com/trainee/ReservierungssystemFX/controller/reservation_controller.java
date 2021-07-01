@@ -178,7 +178,6 @@ public class reservation_controller implements Initializable {
             alert.setTitle("FEHLER!");
             alert.setContentText("Falsches Zeitformat");
             alert.showAndWait();
-            FrequentlyUsedButtons.goToReservation(mouseEvent);
         }
 
     }
