@@ -43,4 +43,20 @@ public class Random_Number_Generator {
         }
         return iRand;
     }
+    public int HistRandomNumber() {
+        int iRand = 0;
+        try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
+            while (true) {
+                iRand = (int) (Math.random() * 99999999) + 10000000;
+                String SQL = "SELECT HistoryID FROM dbo.ReservationsHistory WHERE HistoryID like'" + iRand + "'";
+                ResultSet rs = stmt.executeQuery(SQL);
+                if (!rs.next()) {
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return iRand;
+    }
 }

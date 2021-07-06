@@ -21,6 +21,7 @@ import java.util.Date;
 
 public class Zeit_Vergleich extends Thread {
     String sNow;
+    Random_Number_Generator rand = new Random_Number_Generator();
 
     public void run() {
         while (true) {
@@ -34,8 +35,20 @@ public class Zeit_Vergleich extends Thread {
                     LocalDateTime now = LocalDateTime.now();
                     sNow = dtf.format(now);
                     if ((Constants.df.parse(sNow).compareTo(Constants.df.parse(sdatumBISRES)) >= 0)) {
-                        PreparedStatement stat = con.prepareStatement("delete from Reservations where ReservationID like '" + rs.getInt("ReservationID") + "'");
-                        stat.executeUpdate();
+                        int iHistID = rand.HistRandomNumber();
+                        String insert = "insert into ReservationsHistory values(?,?,?,?,?,?,?,?)";
+                        PreparedStatement insertstmt = con.prepareStatement(insert);
+                        insertstmt.setInt(1, iHistID);
+                        insertstmt.setInt(2, rs.getInt("ReservationID"));
+                        insertstmt.setInt(3, rs.getInt("EmployeeID"));
+                        insertstmt.setInt(4, rs.getInt("Roomnumber"));
+                        insertstmt.setDate(5, rs.getDate("Starting_Date"));
+                        insertstmt.setTime(6, rs.getTime("Starting_Time"));
+                        insertstmt.setDate(7, rs.getDate("Ending_Date"));
+                        insertstmt.setTime(8, rs.getTime("Ending_Time"));
+                        insertstmt.execute();
+                        PreparedStatement delstmt = con.prepareStatement("delete from Reservations where ReservationID like '" + rs.getInt("ReservationID") + "'");
+                        delstmt.executeUpdate();
                     }
                 }
                 try {
@@ -53,5 +66,4 @@ public class Zeit_Vergleich extends Thread {
             }
         }
     }
-
 }
