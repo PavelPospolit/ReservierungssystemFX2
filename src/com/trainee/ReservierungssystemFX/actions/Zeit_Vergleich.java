@@ -25,7 +25,6 @@ public class Zeit_Vergleich extends Thread {
 
     public void run() {
         while (true) {
-            String date = Constants.df.format(new Date());
             try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
                 String SQL = "SELECT * FROM dbo.Reservations";
                 ResultSet rs = stmt.executeQuery(SQL);
