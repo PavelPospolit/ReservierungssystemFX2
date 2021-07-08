@@ -148,11 +148,9 @@ public class reservation_controller implements Initializable {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd;HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
                 sNow = dtf.format(now);
-                boolean bDate = true;
                 while (rsemp.next()) {
                     if ((zuSpät && zuFrüh) && (Constants.df.parse(sVonDate + ";" + sVonTime).compareTo(Constants.df.parse(sBisDate + ";" + sBisTime)) <= 0)&&
                             (Constants.df.parse(sNow).compareTo(Constants.df.parse(sVonDate+";"+sVonTime)) <= 0)) {
-                        bDate = false;
                         int iRand = rand.ResRandomNumber();
                         String insert = "insert into Reservations values(?,?,?,?,?,?,?)";
                         PreparedStatement insertstmt = con.prepareStatement(insert);
