@@ -148,7 +148,7 @@ public class reservation_controller implements Initializable {
                 String SQLemp = "SELECT * FROM Employees WHERE Emailaddress like'" + log_in_controller.sName + "'";
                 ResultSet rsemp = stmt.executeQuery(SQLemp);
                 while (rsemp.next()) {
-                    if (zuSpät && zuFrüh) {
+                    if ((zuSpät && zuFrüh)&&(Constants.df.parse(sVonDate+";"+sVonTime).compareTo(Constants.df.parse(sBisDate+";"+sBisTime)) <= 0)) {
                         int iRand = rand.ResRandomNumber();
                         String insert = "insert into Reservations values(?,?,?,?,?,?,?)";
                         PreparedStatement insertstmt = con.prepareStatement(insert);
@@ -168,9 +168,16 @@ public class reservation_controller implements Initializable {
 
                         FrequentlyUsedButtons.goToReservation(mouseEvent);
                     }
+                    else{
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Zeitfehler");
+                        alert.setContentText("Das Enddatum darf nicht vor dem Startdatum liegen!");
+
+                        alert.showAndWait();
+                    }
                 }
 
-            } catch (SQLException e) {
+            } catch (SQLException | ParseException e) {
                 e.printStackTrace();
             }
         } else {
