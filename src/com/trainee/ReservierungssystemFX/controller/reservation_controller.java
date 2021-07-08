@@ -4,19 +4,16 @@ import com.trainee.ReservierungssystemFX.actions.Random_Number_Generator;
 import com.trainee.ReservierungssystemFX.resources.FrequentlyUsedButtons;
 import com.trainee.ReservierungssystemFX.resources.Constants;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -147,8 +144,15 @@ public class reservation_controller implements Initializable {
                 }
                 String SQLemp = "SELECT * FROM Employees WHERE Emailaddress like'" + log_in_controller.sName + "'";
                 ResultSet rsemp = stmt.executeQuery(SQLemp);
+                String sNow;
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd;HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                sNow = dtf.format(now);
+                boolean bDate = true;
                 while (rsemp.next()) {
-                    if ((zuSpät && zuFrüh)&&(Constants.df.parse(sVonDate+";"+sVonTime).compareTo(Constants.df.parse(sBisDate+";"+sBisTime)) <= 0)) {
+                    if ((zuSpät && zuFrüh) && (Constants.df.parse(sVonDate + ";" + sVonTime).compareTo(Constants.df.parse(sBisDate + ";" + sBisTime)) <= 0)&&
+                            (Constants.df.parse(sNow).compareTo(Constants.df.parse(sVonDate+";"+sVonTime)) <= 0)) {
+                        bDate = false;
                         int iRand = rand.ResRandomNumber();
                         String insert = "insert into Reservations values(?,?,?,?,?,?,?)";
                         PreparedStatement insertstmt = con.prepareStatement(insert);
@@ -163,12 +167,19 @@ public class reservation_controller implements Initializable {
 
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("ERFOLG!");
-                        alert.setContentText("Raum erfolgreich gebucht \nBuchungsnummer: "+iRand);
+                        alert.setContentText("Raum erfolgreich gebucht \nBuchungsnummer: " + iRand);
                         alert.showAndWait();
 
                         FrequentlyUsedButtons.goToReservation(mouseEvent);
                     }
-                    else{
+                    else if((Constants.df.parse(sNow).compareTo(Constants.df.parse(sVonDate+";"+sVonTime)) >= 0)){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Zeitfehler");
+                        alert.setContentText("Das Startdatum liegt in der Vergangenheit!");
+
+                        alert.showAndWait();
+                    }
+                    else if ((Constants.df.parse(sVonDate + ";" + sVonTime).compareTo(Constants.df.parse(sBisDate + ";" + sBisTime)) >= 0)){
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Zeitfehler");
                         alert.setContentText("Das Enddatum darf nicht vor dem Startdatum liegen!");

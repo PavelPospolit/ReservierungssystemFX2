@@ -7,7 +7,6 @@ import java.sql.*;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /*create a date format
  * safe today's Date and Time into date1 variable

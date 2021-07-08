@@ -24,8 +24,6 @@ public class log_in_controller {
     @FXML
     private Label errorWindowEmail;
     @FXML
-    private Label errorWindowPassword;
-    @FXML
     static Button log_in_button;
     static String sName = "";
 
