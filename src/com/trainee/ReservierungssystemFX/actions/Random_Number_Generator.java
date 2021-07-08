@@ -1,7 +1,7 @@
 package com.trainee.ReservierungssystemFX.actions;
 
-/*Creates a random number for 2 cases:
- *employee (Mitarbeiter) and booking (Reservierung)
+/*Creates a random number for 3 cases:
+ *employee (Mitarbeiter), booking (Reservierung) and History
  */
 
 import com.trainee.ReservierungssystemFX.resources.Constants;
@@ -13,14 +13,23 @@ public class Random_Number_Generator {
         int iRand = 0;
         try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
             while (true) {
-                iRand = (int) (Math.random() * 99999999) + 10000000;
-                String SQL = "SELECT EmployeeID FROM dbo.Employees WHERE EmployeeID like'" + iRand + "'";
-                ResultSet rs = stmt.executeQuery(SQL);
-                if (!rs.next()) {
+                iRand = (int) (Math.random() * 99999999) + 1;
+                String SQLHist = "SELECT HistoryID FROM dbo.ReservationsHistory WHERE HistoryID like'" + iRand + "'";
+                ResultSet rsHist = stmt.executeQuery(SQLHist);
+                if (!rsHist.next()) {
+                    break;
+                }
+                String SQLRes = "SELECT ReservationID FROM dbo.Reservations WHERE ReservationID like'" + iRand + "'";
+                ResultSet rsRes = stmt.executeQuery(SQLRes);
+                if (!rsRes.next()) {
+                    break;
+                }
+                String SQLEmp = "SELECT EmployeeID FROM dbo.Employees WHERE EmployeeID like'" + iRand + "'";
+                ResultSet rsEmp = stmt.executeQuery(SQLEmp);
+                if (!rsEmp.next()) {
                     break;
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,10 +40,20 @@ public class Random_Number_Generator {
         int iRand = 0;
         try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
             while (true) {
-                iRand = (int) (Math.random() * 99999999) + 10000000;
-                String SQL = "SELECT ReservationID FROM dbo.Reservations WHERE ReservationID like'" + iRand + "'";
-                ResultSet rs = stmt.executeQuery(SQL);
-                if (!rs.next()) {
+                iRand = (int) (Math.random() * 99999999) + 1;
+                String SQLHist = "SELECT HistoryID FROM dbo.ReservationsHistory WHERE HistoryID like'" + iRand + "'";
+                ResultSet rsHist = stmt.executeQuery(SQLHist);
+                if (!rsHist.next()) {
+                    break;
+                }
+                String SQLRes = "SELECT ReservationID FROM dbo.Reservations WHERE ReservationID like'" + iRand + "'";
+                ResultSet rsRes = stmt.executeQuery(SQLRes);
+                if (!rsRes.next()) {
+                    break;
+                }
+                String SQLEmp = "SELECT EmployeeID FROM dbo.Employees WHERE EmployeeID like'" + iRand + "'";
+                ResultSet rsEmp = stmt.executeQuery(SQLEmp);
+                if (!rsEmp.next()) {
                     break;
                 }
             }
@@ -43,14 +62,25 @@ public class Random_Number_Generator {
         }
         return iRand;
     }
+
     public int HistRandomNumber() {
         int iRand = 0;
         try (Connection con = DriverManager.getConnection(Constants.sql_url); Statement stmt = con.createStatement();) {
             while (true) {
-                iRand = (int) (Math.random() * 99999999) + 10000000;
-                String SQL = "SELECT HistoryID FROM dbo.ReservationsHistory WHERE HistoryID like'" + iRand + "'";
-                ResultSet rs = stmt.executeQuery(SQL);
-                if (!rs.next()) {
+                iRand = (int) (Math.random() * 99999999) + 1;
+                String SQLHist = "SELECT HistoryID FROM dbo.ReservationsHistory WHERE HistoryID like'" + iRand + "'";
+                ResultSet rsHist = stmt.executeQuery(SQLHist);
+                if (!rsHist.next()) {
+                    break;
+                }
+                String SQLRes = "SELECT ReservationID FROM dbo.Reservations WHERE ReservationID like'" + iRand + "'";
+                ResultSet rsRes = stmt.executeQuery(SQLRes);
+                if (!rsRes.next()) {
+                    break;
+                }
+                String SQLEmp = "SELECT EmployeeID FROM dbo.Employees WHERE EmployeeID like'" + iRand + "'";
+                ResultSet rsEmp = stmt.executeQuery(SQLEmp);
+                if (!rsEmp.next()) {
                     break;
                 }
             }
