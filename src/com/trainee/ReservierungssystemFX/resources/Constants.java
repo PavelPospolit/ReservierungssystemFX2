@@ -26,7 +26,7 @@ public class Constants {
     public static  final File rFile = new File("src\\com\\trainee\\ReservierungssystemFX\\resources\\Raumliste.txt");
     public static  final File mFile = new File("src\\com\\trainee\\ReservierungssystemFX\\resources\\Mitarbeiter.txt");
     public static  final File resFile = new File("src\\com\\trainee\\ReservierungssystemFX\\resources\\Reservierungen.txt");
-    public static  SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd;HH:mm");
+    public static  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd;HH:mm");
     public static SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
     public static final String sql_url =  "jdbc:sqlserver://BE1BD320:1433;instance=SQLEXPRESS;databaseName=Reservierungssystem;user=Test;password=Test";
 
